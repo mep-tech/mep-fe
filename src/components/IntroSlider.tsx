@@ -3,11 +3,10 @@ import { gsap } from "gsap";
 
 const IntroSlider = ({ slides }: any) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const imageRef = useRef(null);
-  const headerRef: any = useRef(null);
-  const paragraphRef = useRef(null);
-  const dotRefs: any = useRef([]);
-
+  const imageRef = useRef<HTMLImageElement | null>(null);
+  const headerRef = useRef<HTMLDivElement | null>(null);
+  const paragraphRef = useRef<HTMLParagraphElement | null>(null);
+  const dotRefs = useRef<HTMLDivElement[]>([]);
   const intervalRef = useRef<any | null>(null);
 
   const changeSlide = (newIndex: number) => {
@@ -32,7 +31,7 @@ const IntroSlider = ({ slides }: any) => {
 
   const fadeOutCurrentSlide = (onComplete: () => void) => {
     const image = imageRef.current;
-    const headerParts: any = headerRef.current.children;
+    const header = headerRef.current;
     const paragraph = paragraphRef.current;
 
     const fadeOutTimeline = gsap.timeline({ onComplete });
@@ -45,7 +44,7 @@ const IntroSlider = ({ slides }: any) => {
     });
 
     fadeOutTimeline.to(
-      [headerParts, paragraph],
+      [header, paragraph],
       {
         opacity: 0,
         duration: 1,
@@ -57,28 +56,55 @@ const IntroSlider = ({ slides }: any) => {
 
   useEffect(() => {
     const image = imageRef.current;
-    const headerParts: any = headerRef.current.children;
+    const header = headerRef.current;
     const paragraph = paragraphRef.current;
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 768px)", () => {
+      gsap.fromTo(
+        image,
+        { x: "100%", opacity: 0, scale: 0.2, y: "50%" },
+        {
+          x: "0%",
+          opacity: 1,
+          duration: 2,
+          delay: 0.5,
+          scale: 1,
+          y: "0%",
+          stagger: 0.4,
+          ease: "power3.out",
+        }
+      );
+    });
+
+    mm.add("(max-width: 767px)", () => {
+      gsap.fromTo(
+        image,
+        { x: "0%",
+          opacity: 0, scale: 0.2, y: "50%" },
+        {
+          x: "0%",
+          opacity: 1,
+          duration: 2,
+          delay: 0.5,
+          scale: 1,
+          y: "0%",
+          stagger: 0.4,
+          ease: "power3.out",
+        }
+      );
+    });
 
     gsap.fromTo(
-      image,
-      { x: "100%", opacity: 0, scale: 0.2, y: "50%" },
-      {
-        x: "0%",
-        opacity: 1,
-        duration: 2,
-        delay: 0.5,
-        scale: 1,
-        y: "0%",
-        stagger: 0.4,
-        ease: "power3.out",
-      }
-    );
-
-    gsap.fromTo(
-      headerParts,
+      header,
       { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, stagger: 0.2, duration: 1, delay: 0.5, ease: "power4.out" }
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        delay: 0.5,
+        ease: "power4.out",
+      }
     );
 
     gsap.fromTo(
@@ -87,9 +113,11 @@ const IntroSlider = ({ slides }: any) => {
       { y: 0, opacity: 1, duration: 2, delay: 0.5, ease: "circ.inOut" }
     );
 
-    return () => {
-      gsap.killTweensOf([image, headerParts, paragraph]);
-    };
+    // return () => {
+    //   gsap.killTweensOf([image, header, paragraph]);
+    // };
+
+    return () => mm.revert();
   }, [currentIndex]);
 
   useEffect(() => {
@@ -102,30 +130,43 @@ const IntroSlider = ({ slides }: any) => {
     };
   }, [slides.length]);
 
+  useEffect(() => {
+    if (dotRefs.current.length) {
+      gsap.fromTo(
+        dotRefs.current,
+        { opacity: 0.2, scale: 0.8 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 2,
+          stagger: 0.1,
+          ease: "power1.out",
+        }
+      );
+    }
+  }, [currentIndex]);
+
   return (
-    <div className="flex items-center justify-center h-screen pl-10 pt-10 pb-0 overflow-hidden relative max-h-[calc(100vh_-_64px)]">
-      <div className="flex flex-col items-start justify-center flex-1 space-y-4">
+    <div className="flex md:flex-row flex-col items-center md:justify-center justify-around md:pl-10 xxs:px-6 px-2 pt-10 pb-0 overflow-hidden relative md:h-[calc(100vh_-_64px)] h-screen min-h-[500px]">
+      <div className="flex flex-col md:items-start md:justify-center justify-end flex-1 space-y-4 lg:w-auto md:w-1/2 w-full pt-6 md:mb-0 mb-6">
         <div
           ref={headerRef}
-          className="text-5xl font-bold uppercase text-white"
+          className="xl:text-5xl lg:text-4xl xs:text-3xl text-2xl font-bold uppercase text-white sm:text-left text-center"
         >
-          {slides[currentIndex].header
-            .split(", ")
-            .map((word: string, index: number) => (
-              <div key={index} className="my-3">
-                {word}
-              </div>
-            ))}
+          {slides[currentIndex].header}
         </div>
-        <p ref={paragraphRef} className="text-lg text-background/70">
+        <p
+          ref={paragraphRef}
+          className="lg:text-lg sm:text-base text-sm text-background/70 sm:text-left text-center"
+        >
           {slides[currentIndex].paragraph}
         </p>
 
-        <div className="absolute bottom-10 left-10 flex space-x-2 mt-4">
+        <div className="absolute bottom-10 left-10 space-x-2 mt-4 sm:flex hidden">
           {slides.map((_: any, index: number) => (
             <div
               key={index}
-              ref={(el) => (dotRefs.current[index] = el)}
+              ref={(el) => (dotRefs.current[index] = el!)}
               className={`h-3 w-3 rounded-full cursor-pointer ${
                 index === currentIndex
                   ? "bg-secondary"
@@ -137,12 +178,12 @@ const IntroSlider = ({ slides }: any) => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-hidden">
+      <div className="flex flex-col flex-1 md:items-end items-center justify-end content-end overflow-hidden bg-fuchsia-600/0 h-full lg:w-auto md:w-1/2 w-full">
         <img
           ref={imageRef}
           src={slides[currentIndex].image}
           alt="Slide"
-          className="object-contain w-auto h-[70%]"
+          className="object-contain w-auto max-h-full"
         />
       </div>
     </div>

@@ -4,7 +4,7 @@ import { IoPaperPlaneOutline } from "react-icons/io5";
 
 const TopBar: React.FC = () => {
   return (
-    <div className="bg-foreground flex justify-between px-6 h-[64px] py-2">
+    <div className="bg-foreground md:flex hidden justify-between px-6 h-[64px] py-2">
       <img src="/logo-full.png" alt="logo" />
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
