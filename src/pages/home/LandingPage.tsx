@@ -14,7 +14,7 @@ const DualNavbar: React.FC = () => {
     element?.scrollIntoView({ behavior: "smooth" });
   };
   return (
-    <div>
+    <div className="max-w-[1440px] mx-auto">
       <TopBar />
       <Intro scrollToSection={scrollToSection} />
       <About />
