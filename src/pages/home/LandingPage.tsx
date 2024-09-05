@@ -7,6 +7,7 @@ import WhyUs from "./sections/WhyUs";
 import Projects from "./sections/Projects";
 import Testimonials from "./sections/Testimonials";
 import Footer from "../../components/Footer";
+import Stats from "./sections/Stats";
 
 const DualNavbar: React.FC = () => {
   const scrollToSection = (section: string) => {
@@ -18,6 +19,7 @@ const DualNavbar: React.FC = () => {
       <TopBar />
       <Intro scrollToSection={scrollToSection} />
       <About />
+      <Stats />
       <Services />
       <WhyUs />
       <Projects />

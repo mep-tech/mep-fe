@@ -18,8 +18,7 @@ const slides = [
   },
   {
     image: "/images/worker4.png",
-    header:
-      "Expertly Crafted Systems Designed to Meet Your Unique Needs",
+    header: "Expertly Crafted Systems Designed to Meet Your Unique Needs",
     paragraph:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis culpa non fugiat placeat perspiciatis saepe dolore veniam eum beatae consectetur voluptate, voluptatem cupiditate, ipsa facere aut repellendus tempora hic magnam?",
   },
@@ -29,17 +28,12 @@ const Intro = ({ scrollToSection }: any) => {
   return (
     <div
       id="home"
-      className="md:h-[calc(100vh_-_64px)] h-screen min-h-[500px] relative"
-      style={{
-        background: "url(/images/bg-1.jpg), linear-gradient(#1d2a37, #1d2a37)",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundBlendMode: "overlay",
-      }}
+      className="md:h-[calc(100vh_-_64px)] h-screen min-h-[500px] relative intro-container"
     >
-      <NavBar scrollToSection={scrollToSection} />
-      <IntroSlider slides={slides} />
+      <div className="z-10">
+        <NavBar scrollToSection={scrollToSection} />
+        <IntroSlider slides={slides} />
+      </div>
     </div>
   );
 };
