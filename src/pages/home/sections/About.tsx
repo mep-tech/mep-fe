@@ -129,7 +129,7 @@ const About: React.FC = () => {
           services tailored to specific project needs
         </p>
         <Button
-          className="bg-secondary text-white capitalize text-base w-fit px-10 mt-10 font-normal"
+          className="bg-secondary text-white capitalize text-base w-fit px-14 py-4 mt-10 font-normal"
           ref={buttonRef}
         >
           Read more
