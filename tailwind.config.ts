@@ -3,13 +3,11 @@ import type { Config } from "tailwindcss";
 const config: Config = {
   content: ["./*.html", "./src/**/*.{js,ts,jsx,tsx,mdx}"],
   mode: "jit",
-  important: true,
   corePlugins: {
     preflight: true,
   },
   theme: {
     extend: {
-
       screens: {
         xxs: "320px",
         xs: "440px",
