@@ -14,7 +14,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #283747;
+  color: #343434;
 }
 ::-webkit-scrollbar {
   width: 10px;

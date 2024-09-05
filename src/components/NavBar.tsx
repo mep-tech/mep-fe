@@ -11,7 +11,6 @@ import {
 import { useEffect, useState } from "react";
 import { IoArrowForward } from "react-icons/io5";
 import { RiMenu3Fill } from "react-icons/ri";
-import { useLocation } from "react-router-dom";
 
 const items = [
   {
@@ -52,11 +51,8 @@ const items = [
 ];
 
 const NavBar = ({ scrollToSection }: any) => {
-  const location = useLocation();
   const [pageScrolled, setPageScrolled] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
-
-  console.log(location);
 
   useEffect(() => {
     const scrollAction = () => {
@@ -92,23 +88,21 @@ const NavBar = ({ scrollToSection }: any) => {
           )}
           <div className="flex justify-evenly px-2 lg:px-6 h-[64px] py-2 w-full items-center gap-4">
             {items.map((item, index) => (
-              <>
-                {item.name === "contact" ? (
-                  <Button className="bg-secondary text-white capitalize text-base px-8">
-                    Contact
-                  </Button>
-                ) : (
-                  <span
-                    key={index}
-                    onClick={() => {
-                      scrollToSection(item.slug);
-                    }}
-                    className="text-white capitalize hover:text-secondary cursor-pointer"
-                  >
-                    {item.name}
-                  </span>
-                )}
-              </>
+							item.name === "contact" ? (
+								<Button key={index} className="bg-secondary text-white capitalize text-base px-8">
+									Contact
+								</Button>
+							) : (
+								<span
+									key={index}
+									onClick={() => {
+										scrollToSection(item.slug);
+									}}
+									className="text-white capitalize hover:text-secondary cursor-pointer"
+								>
+									{item.name}
+								</span>
+							)
             ))}
           </div>{" "}
         </div>
