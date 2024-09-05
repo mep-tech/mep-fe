@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const IntroSlider = ({ slides }: any) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -75,13 +76,25 @@ const IntroSlider = ({ slides }: any) => {
           ease: "power3.out",
         }
       );
+
+      ScrollTrigger.create({
+        animation: gsap.fromTo(
+          image,
+          { x: "0%" },
+          { x: "100%", duration: 3, z: 0.01}
+        ),
+        trigger: image,
+        start: "top 80%",
+        end: "top 20%",
+        toggleActions: "play none none none",
+        scrub: true,
+      });
     });
 
     mm.add("(max-width: 767px)", () => {
       gsap.fromTo(
         image,
-        { x: "0%",
-          opacity: 0, scale: 0.2, y: "50%" },
+        { x: "0%", opacity: 0, scale: 0.2, y: "50%" },
         {
           x: "0%",
           opacity: 1,
@@ -93,6 +106,15 @@ const IntroSlider = ({ slides }: any) => {
           ease: "power3.out",
         }
       );
+
+      ScrollTrigger.create({
+        animation: gsap.to(image, { x: "200%", duration: 3 }),
+        trigger: image,
+        start: "top 80%",
+        end: "top 20%",
+        toggleActions: "play none none none",
+        scrub: true,
+      });
     });
 
     gsap.fromTo(
@@ -113,12 +135,61 @@ const IntroSlider = ({ slides }: any) => {
       { y: 0, opacity: 1, duration: 2, delay: 0.5, ease: "circ.inOut" }
     );
 
+    ScrollTrigger.create({
+      animation: gsap.fromTo(header, { x: "0%" }, { x: "30%", duration: 3 }),
+      trigger: header,
+      start: "top 20%",
+      end: "top -80%",
+      toggleActions: "play none none none",
+      scrub: true,
+    });
+
+    ScrollTrigger.create({
+      animation: gsap.fromTo(paragraph, { y: 0 }, { y: 50, duration: 3 }),
+      trigger: paragraph,
+      start: "top 50%",
+      end: "top 0%",
+      toggleActions: "play none none none",
+      scrub: true,
+    });
+
+    ScrollTrigger.create({
+      animation: gsap.fromTo(
+        dotRefs.current,
+        { opacity: 1, scale: 1 },
+        {
+          opacity: 0.2,
+          scale: 0.8,
+          duration: 2,
+          stagger: 0.1,
+          ease: "power1.out",
+        }
+      ),
+      trigger: dotRefs.current,
+      start: "top 80%",
+      end: "top 20%",
+      toggleActions: "play none none none",
+      scrub: true,
+    });
+
     // return () => {
     //   gsap.killTweensOf([image, header, paragraph]);
     // };
 
     return () => mm.revert();
   }, [currentIndex]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      resetInterval();
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     resetInterval();
@@ -147,8 +218,8 @@ const IntroSlider = ({ slides }: any) => {
   }, [currentIndex]);
 
   return (
-    <div className="flex md:flex-row flex-col items-center md:justify-center justify-around md:pl-10 xxs:px-6 px-2 pt-10 pb-0 overflow-hidden relative md:h-[calc(100vh_-_64px)] h-screen min-h-[500px]">
-      <div className="flex flex-col md:items-start md:justify-center justify-end flex-1 space-y-4 lg:w-auto md:w-1/2 w-full pt-6 md:mb-0 mb-6">
+    <div className="flex md:flex-row flex-col items-center md:justify-center justify-around pt-10 pb-0 overflow-hidden relative md:h-[calc(100vh_-_64px)] h-screen min-h-[500px] z-10">
+      <div className="flex flex-col md:items-start md:justify-center justify-end flex-1 space-y-4 lg:w-auto md:w-1/2 w-full pt-6 md:mb-0 mb-6 md:pl-10 xxs:px-6 px-2">
         <div
           ref={headerRef}
           className="xl:text-5xl lg:text-4xl xs:text-3xl text-2xl font-bold uppercase text-white sm:text-left text-center"
