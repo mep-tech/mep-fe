@@ -73,7 +73,6 @@ const Services = () => {
           },
           start: "top top",
           end: () => `+=${(servicesImages.length - 1) * 2}00%`,
-          markers: true,
         },
       });
 

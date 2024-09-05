@@ -6,7 +6,6 @@ import Intro from "./sections/Intro";
 import Projects from "./sections/Projects";
 import Services from "./sections/Services";
 import Testimonials from "./sections/Testimonials";
-import Footer from "../../components/Footer";
 import Stats from "./sections/Stats";
 import WhyUs from "./sections/WhyUs";
 
@@ -25,7 +24,7 @@ const DualNavbar: React.FC = () => {
       <WhyUs />
       <Projects />
       <Testimonials />
-      <Footer />
+      <Footer scrollToSection={scrollToSection} />
     </div>
   );
 };
