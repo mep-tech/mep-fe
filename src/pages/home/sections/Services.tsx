@@ -132,7 +132,7 @@ const Services = () => {
 
   return (
     <div id="services" className="h-screen px-5 py-8 md:p-16 flex flex-col overflow-y-auto overflow-x-hidden">
-      <Title title="SERVICES" className="mx-auto my-8" />
+      <Title title="SERVICES" color="common.black" className="mx-auto my-8" />
       <div className="min-h-max w-full grow flex flex-col md:flex-row md:items-center gap-8 md:gap-12 lg:gap-16">
         <div className="aspect-[16/10] max-w-[600px] w-full md:size-auto md:grow md:w-1/2 bg-transparent mx-auto md:mx-0 md:my-auto relative">
           {servicesImages.map((image) => (

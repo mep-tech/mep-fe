@@ -36,7 +36,6 @@
 .image-container {
   position: relative;
   width: 100%;
-  height: 400px;
   background: url(/images/handshake.jpg) center/cover no-repeat;
 }
 .image-container::before {

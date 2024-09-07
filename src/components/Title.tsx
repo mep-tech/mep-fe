@@ -1,6 +1,14 @@
 import { Typography } from "@mui/material";
 
-const Title = ({ title, ...props }: { title: string; [props: string]: any }) => {
+const Title = ({
+  title,
+  color,
+  ...props
+}: {
+  title: string;
+  color: "common.white" | "common.black" | "primary.main" | "secondary.main";
+  [props: string]: any;
+}) => {
   return (
     <Typography
       sx={{
@@ -8,7 +16,7 @@ const Title = ({ title, ...props }: { title: string; [props: string]: any }) => 
         fontWeight: 700,
         fontSize: { xs: "32px", md: "40px" },
         lineHeight: "1.2",
-        color: "common.black",
+        color: color,
         zIndex: 1,
         width: "fit-content",
         pointerEvents: "none",
