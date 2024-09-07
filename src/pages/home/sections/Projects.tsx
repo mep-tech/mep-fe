@@ -1,16 +1,27 @@
 import { Box, Button, Skeleton, Typography, useMediaQuery } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import Title from "../../../components/Title";
 import { getAllProjects, selectAllProjects } from "../../../store/slices/project.slice";
+import Carousel, { CarouselRef } from "../../../components/Carousel";
 
-const ProjectCard = ({ position, project }: { position: number; project: any }) => {
+const ProjectCard = ({
+  position,
+  project,
+  onPrevious,
+  onNext,
+}: {
+  position: number;
+  project: any;
+  onPrevious: () => void;
+  onNext: () => void;
+}) => {
   const num = position < 10 ? `0${position}` : position.toString();
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   return !isMobile ? (
-    <div className="size-full flex flex-row absolute top-0 left-0">
+    <div className="size-full flex flex-row">
       <div className="size-full max-w-[60%] lg:max-w-[42%] bg-secondary flex flex-row relative">
         <div className="text-white/25 text-[128px] font-bold my-auto m-4">{num}</div>
         <div className="px-4 py-8 grow flex flex-col justify-between gap-4 text-white">
@@ -54,10 +65,10 @@ const ProjectCard = ({ position, project }: { position: number; project: any }) 
           </div>
         </div>
         <div className="absolute bottom-8 -right-[26px] flex flex-col gap-4 text-white">
-          <Button variant="contained" className="p-2 rounded-none shadow-none">
+          <Button variant="contained" className="p-2 rounded-none shadow-none" onClick={onNext}>
             <MdOutlineKeyboardArrowRight size="36px" />
           </Button>
-          <Button variant="contained" className="p-2 rounded-none shadow-none">
+          <Button id="#nextButton" variant="contained" className="p-2 rounded-none shadow-none" onClick={onPrevious}>
             <MdOutlineKeyboardArrowLeft size="36px" />
           </Button>
         </div>
@@ -75,8 +86,7 @@ const Projects = () => {
   const dispatch = useDispatch<any>();
   const projects = useSelector(selectAllProjects);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  console.log(projects, isLoading);
+  const carouselRef = useRef<CarouselRef>(null);
 
   useEffect(() => {
     dispatch(getAllProjects({ skip: 0, limit: 10 })).then(() => {
@@ -99,9 +109,17 @@ const Projects = () => {
       </div>
       <div className="size-full h-[521px] relative">
         {!isLoading ? (
-          projects
-            .slice(0, 10)
-            .map((project, index) => <ProjectCard key={project._id} position={index + 1} project={project} />)
+          <Carousel>
+            {projects.slice(0, 10).map((project, index) => (
+              <ProjectCard
+                onPrevious={() => carouselRef.current?.onPreviousClick()}
+                onNext={() => carouselRef.current?.onNextClick()}
+                key={project._id}
+                position={index + 1}
+                project={project}
+              />
+            ))}
+          </Carousel>
         ) : (
           <Skeleton
             animation="wave"

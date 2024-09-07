@@ -6,7 +6,7 @@ const Title = ({
   ...props
 }: {
   title: string;
-  color: "common.white" | "common.black" | "primary.main" | "secondary.main";
+  color?: "common.white" | "common.black" | "primary.main" | "secondary.main";
   [props: string]: any;
 }) => {
   return (
