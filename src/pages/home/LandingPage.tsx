@@ -7,6 +7,7 @@ import Services from "./sections/Services";
 import Testimonials from "./sections/Testimonials";
 import Stats from "./sections/Stats";
 import WhyUs from "./sections/WhyUs";
+import Footer from "../../components/Footer";
 
 const DualNavbar: React.FC = () => {
   const scrollToSection = (section: string) => {
