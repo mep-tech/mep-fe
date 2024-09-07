@@ -13,22 +13,6 @@ const About: React.FC = () => {
 
   useEffect(() => {
     gsap.fromTo(
-      purpleBoxRef.current,
-      { x: -200, opacity: 0 },
-      {
-        x: 0,
-        opacity: 1,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: purpleBoxRef.current,
-          start: "top 80%",
-          end: "top -80%",
-          scrub: true,
-        },
-      }
-    );
-
-    gsap.fromTo(
       leftImageRef.current,
       { x: 200, opacity: 0 },
       {
@@ -38,6 +22,22 @@ const About: React.FC = () => {
           trigger: leftImageRef.current,
           start: "top 80%",
           end: "top 10%",
+          scrub: true,
+        },
+      }
+    );
+
+    gsap.fromTo(
+      purpleBoxRef.current,
+      { x: -2000, opacity: 1 },
+      {
+        x: 0,
+        opacity: 1,
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: purpleBoxRef.current,
+          start: "top 80%",
+          end: "top 0%",
           scrub: true,
         },
       }
@@ -68,7 +68,7 @@ const About: React.FC = () => {
         opacity: 1,
         scrollTrigger: {
           trigger: buttonRef.current,
-          start: "top 90%",
+          start: "top 150%",
           end: "top 60%",
           scrub: true,
         },
@@ -79,7 +79,7 @@ const About: React.FC = () => {
   return (
     <div
       id="about"
-      className="lg:h-[calc(100vh_-_64px)] h-fit py-8 min-h-[500px] flex lg:flex-row flex-col items-center gap-10 sm:px-10 px-5"
+      className="lg:min-h-[calc(100vh_-_64px)] h-fit py-8 min-h-[500px] flex lg:flex-row flex-col items-center gap-10 sm:px-10 px-5"
       style={{
         background:
           "url(/images/bg-2.jpg), linear-gradient(#ffffff9d, #ffffffd9)",
@@ -94,7 +94,7 @@ const About: React.FC = () => {
         ref={leftImageRef}
       >
         <div
-          className="absolute w-[80%] aspect-[9/6] bg-primary left-1/2 transform -translate-x-[45%] top-1/2 -translate-y-[55%]"
+          className="absolute w-[80%] aspect-[9/6] bg-primary !left-1/2 transform !-translate-x-[50%] !top-1/2 !-translate-y-[55%]"
           ref={purpleBoxRef}
         ></div>
         <img

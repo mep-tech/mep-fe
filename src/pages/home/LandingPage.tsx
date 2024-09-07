@@ -1,5 +1,4 @@
 import React from "react";
-import Footer from "../../components/Footer";
 import TopBar from "../../components/TopBar";
 import About from "./sections/About";
 import Intro from "./sections/Intro";

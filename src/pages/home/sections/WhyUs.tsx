@@ -3,6 +3,7 @@ import WhyUsCard from "../../../components/WhyUsCard";
 import { Button } from "@mui/material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Title from "../../../components/Title";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -107,7 +108,8 @@ const WhyUs: React.FC = () => {
     >
       <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-10 gap-4 lg:px-16 px-4 z-10">
         <div ref={introRef} className="text-white">
-          <h2 className="text-4xl font-bold uppercase">Why Choose Us?</h2>
+          <h2 className="text-4xl font-bold uppercase"></h2>
+          <Title title='Why Choose Us?' color="common.white" className="uppercase" />
           <p className="text-lg mt-4">
             We are a team of professionals who are dedicated to providing the
             best services to our clients. Here are some reasons why you should
