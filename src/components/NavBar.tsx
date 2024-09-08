@@ -1,10 +1,26 @@
-import { Button, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import {
+  Button,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { IoArrowForward } from "react-icons/io5";
 import { RiMenu3Fill } from "react-icons/ri";
 import { LandingNavLinks } from "../constants/landing-navlinks";
+import { Link } from "react-router-dom";
 
-const NavBar = ({ scrollToSection }: any) => {
+const NavBar = ({
+  scrollToSection,
+  fixNavBar = true,
+}: {
+  scrollToSection: (section: string) => void;
+  fixNavBar?: boolean;
+}) => {
   const [pageScrolled, setPageScrolled] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
 
@@ -26,18 +42,33 @@ const NavBar = ({ scrollToSection }: any) => {
   return (
     <>
       <nav
-        className={`${
-          !pageScrolled ? "absolute bg-transparent" : "fixed top-0 right-0 left-0 backdrop-blur-sm bg-black/30"
-        } w-full transition-all duration-300 z-50 hidden md:block`}
+        className={`
+          ${
+            pageScrolled && fixNavBar
+              ? "fixed top-0 right-0 left-0 backdrop-blur-sm bg-black/30"
+              : "absolute bg-transparent"
+          } w-full transition-all duration-300 !z-[1000] hidden md:block
+         
+        `}
       >
         <div className="w-full flex items-center justify-between gap-4 px-2 lg:px-10">
-          {pageScrolled && <img src="/logo-half.png" alt="logo" className="h-10 w-10 object-contain" />}
+          {(pageScrolled || !fixNavBar) && (
+            <img
+              src="/logo-half.png"
+              alt="logo"
+              className="h-10 w-10 object-contain"
+            />
+          )}
           <div className="flex justify-evenly px-2 lg:px-6 h-[64px] py-2 w-full items-center gap-4">
             {LandingNavLinks.map((item, index) =>
               item.name === "contact" ? (
-                <Button key={index} className="bg-secondary text-white capitalize text-base px-8">
+                <Link
+                  to="/contact"
+                  key={index}
+                  className="bg-secondary text-white py-2 rounded-md capitalize text-base px-8"
+                >
                   Contact
-                </Button>
+                </Link>
               ) : (
                 <span
                   key={index}
@@ -59,7 +90,11 @@ const NavBar = ({ scrollToSection }: any) => {
         }`}
       >
         <div>
-          <img src="/logo-full.png" alt="logo" className="h-10 object-contain" />
+          <img
+            src="/logo-full.png"
+            alt="logo"
+            className="h-10 object-contain"
+          />
         </div>
         <div className="flex items-center gap-2">
           <IconButton
@@ -88,10 +123,18 @@ const NavBar = ({ scrollToSection }: any) => {
       >
         <div className="w-[250px] bg-primary text-white">
           <List>
-            <ListItem disablePadding className={``} onClick={toggleDrawer(false)}>
+            <ListItem
+              disablePadding
+              className={``}
+              onClick={toggleDrawer(false)}
+            >
               <ListItemButton>
                 <div className="w-full flex items-center justify-between">
-                  <img src="/logo-half.png" alt="logo" className="h-10 w-10 object-contain" />
+                  <img
+                    src="/logo-half.png"
+                    alt="logo"
+                    className="h-10 w-10 object-contain"
+                  />
                   <IconButton className="">
                     <IoArrowForward className="text-white" />
                   </IconButton>
@@ -112,9 +155,16 @@ const NavBar = ({ scrollToSection }: any) => {
                   }}
                   key={index}
                 >
-                  <ListItem disablePadding key={index} className={`hover:bg-primary hover:text-secondary`}>
+                  <ListItem
+                    disablePadding
+                    key={index}
+                    className={`hover:bg-primary hover:text-secondary`}
+                  >
                     <ListItemButton>
-                      <ListItemText primary={item.name} className="capitalize text-center" />
+                      <ListItemText
+                        primary={item.name}
+                        className="capitalize text-center"
+                      />
                     </ListItemButton>
                   </ListItem>
                   <Divider />

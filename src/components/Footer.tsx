@@ -10,7 +10,7 @@ import { FaInstagram } from "react-icons/fa";
 import { ImFacebook } from "react-icons/im";
 import { FaYoutube } from "react-icons/fa";
 
-const mediaLinks = [
+export const mediaLinks = [
   {
     name: "X",
     href: "https://x.com",

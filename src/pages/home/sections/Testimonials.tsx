@@ -70,11 +70,13 @@ const TestimonialCard = ({
 }: {
   testimonial: Testimonial;
 }) => {
+  console.log(!companyLogo || !siteImage)
+  console.log(companyLogo, siteImage)
   return (
     <div className="size-full flex flex-row">
       <div className="size-full full flex flex-row relative">
         <div className="px-4 py-8 grow flex flex-col justify-between gap-4 text-white">
-          <div className="flex items-stretch max-w-[1200px] mx-auto bg-green-300 rounded-lg shadow-lg">
+          <div className="flex items-stretch max-w-[1200px] mx-auto bg-white rounded-lg shadow-lg">
             {companyLogo && (
               <div
                 className={`h-full bg-muted w-[300px] flex-none md:flex hidden items-center justify-center rounded-l-lg px-6`}
@@ -97,8 +99,12 @@ const TestimonialCard = ({
               />
             )}
             <div
-              className={`sm:p-12 p-4 bg-white text-white rounded-r-lg md:rounded-l-0 rounded-l-lg 
-              ${!companyLogo && !siteImage && "rounded-l-lg"}
+              className={`sm:p-12 p-4 bg-white text-white rounded-r-lg  
+              ${
+                !companyLogo && !siteImage
+                  ? "rounded-l-lg"
+                  : "md:rounded-l-0 rounded-l-lg"
+              }
               `}
             >
               <div className="flex items-center">
