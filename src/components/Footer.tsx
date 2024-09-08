@@ -9,6 +9,7 @@ import { FaLinkedinIn } from "react-icons/fa6";
 import { FaInstagram } from "react-icons/fa";
 import { ImFacebook } from "react-icons/im";
 import { FaYoutube } from "react-icons/fa";
+import { scrollToSection } from "../utils/scroll.utils";
 
 export const mediaLinks = [
   {
@@ -38,7 +39,7 @@ export const mediaLinks = [
   },
 ];
 
-const Footer = ({ scrollToSection }: any) => {
+const Footer = () => {
   const onLinkClicked = (slug: string) => (e: any) => {
     e.preventDefault();
     scrollToSection(slug);

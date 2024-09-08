@@ -1,6 +1,8 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
-import LandingPage from "../pages/home/LandingPage";
 import Contact from "../pages/contact/Contact";
+import LandingPage from "../pages/home/LandingPage";
+import ProjectPage from "../pages/home/ProjectPage";
+import ProjectsPage from "../pages/home/ProjectsPage";
 
 const routes = createBrowserRouter([
   {
@@ -10,6 +12,14 @@ const routes = createBrowserRouter([
   {
     path: "/contact",
     element: <Contact />,
+  },
+  {
+    path: "/projects",
+    element: <ProjectsPage />,
+  },
+  {
+    path: "/projects/:id",
+    element: <ProjectPage />,
   },
   {
     path: "*",

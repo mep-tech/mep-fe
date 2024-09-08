@@ -10,21 +10,17 @@ import WhyUs from "./sections/WhyUs";
 import Footer from "../../components/Footer";
 
 const DualNavbar: React.FC = () => {
-  const scrollToSection = (section: string) => {
-    const element = document.getElementById(section);
-    element?.scrollIntoView({ behavior: "smooth" });
-  };
   return (
     <div className="max-w-[1440px] mx-auto">
       <TopBar />
-      <Intro scrollToSection={scrollToSection} />
+      <Intro />
       <About />
       <Stats />
       <Services />
       <WhyUs />
       <Projects />
       <Testimonials />
-      <Footer scrollToSection={scrollToSection} />
+      <Footer />
     </div>
   );
 };

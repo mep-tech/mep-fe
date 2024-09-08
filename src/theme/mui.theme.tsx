@@ -2,7 +2,7 @@
 
 import { ThemeProvider, createTheme } from "@mui/material";
 
-const theme = createTheme({
+let theme = createTheme({
   typography: {
     fontFamily: ["Poppins", "sans-serif"].join(","),
   },
@@ -31,13 +31,21 @@ const theme = createTheme({
       black: "#272727",
       white: "#FFFFFF",
     },
-    muted: {
-      main: "#D9D9D9",
-    },
     dark: {
       main: "#272727",
       foreground: "#343434",
     },
+  },
+});
+
+theme = createTheme(theme, {
+  palette: {
+    muted: theme.palette.augmentColor({
+      color: {
+        main: "#D9D9D9",
+      },
+      name: "muted",
+    }),
   },
 });
 

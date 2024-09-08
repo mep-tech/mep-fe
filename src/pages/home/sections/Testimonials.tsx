@@ -1,14 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
-import Title from "../../../components/Title";
-import {
-  getAllTestimonials,
-  selectAllTestimonials,
-} from "../../../store/slices/testimonial.slice";
-import { useEffect, useRef, useState } from "react";
-import Carousel, { CarouselRef } from "../../../components/Carousel";
 import { IconButton, Skeleton } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
 import { FaQuoteRight } from "react-icons/fa";
 import { MdOutlineChevronLeft, MdOutlineChevronRight } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import Carousel, { CarouselRef } from "../../../components/Carousel";
+import Title from "../../../components/Title";
+import { getAllTestimonials, selectAllTestimonials } from "../../../store/slices/testimonial.slice";
 
 const Testimonials = () => {
   const dispatch = useDispatch<any>();
@@ -41,10 +38,7 @@ const Testimonials = () => {
           {!loading ? (
             <Carousel ref={carouselRef} slideDelay={5} slideDuration={1}>
               {testimonials.slice(0, 10).map((testimonial) => (
-                <TestimonialCard
-                  key={testimonial._id}
-                  testimonial={testimonial}
-                />
+                <TestimonialCard key={testimonial._id} testimonial={testimonial} />
               ))}
             </Carousel>
           ) : (
@@ -70,8 +64,6 @@ const TestimonialCard = ({
 }: {
   testimonial: Testimonial;
 }) => {
-  console.log(!companyLogo || !siteImage)
-  console.log(companyLogo, siteImage)
   return (
     <div className="size-full flex flex-row">
       <div className="size-full full flex flex-row relative">
@@ -81,11 +73,7 @@ const TestimonialCard = ({
               <div
                 className={`h-full bg-muted w-[300px] flex-none md:flex hidden items-center justify-center rounded-l-lg px-6`}
               >
-                <img
-                  src={companyLogo}
-                  alt={names}
-                  className="object-contain w-full h-full"
-                />
+                <img src={companyLogo} alt={names} className="object-contain w-full h-full" />
               </div>
             )}
             {siteImage && !companyLogo && (
@@ -100,26 +88,15 @@ const TestimonialCard = ({
             )}
             <div
               className={`sm:p-12 p-4 bg-white text-white rounded-r-lg  
-              ${
-                !companyLogo && !siteImage
-                  ? "rounded-l-lg"
-                  : "md:rounded-l-0 rounded-l-lg"
-              }
+              ${!companyLogo && !siteImage ? "rounded-l-lg" : "md:rounded-l-0 rounded-l-lg"}
               `}
             >
               <div className="flex items-center">
-                <img
-                  src={image}
-                  alt={names}
-                  className="w-20 h-20 rounded-full"
-                />
+                <img src={image} alt={names} className="w-20 h-20 rounded-full" />
                 <div className="ml-4">
                   <p className="font-bold text-lg text-dark">{names}</p>
                   <p className="text-sm text-secondary">
-                    {role}{" "}
-                    {company && (
-                      <span className="text-dark-foreground">@{company}</span>
-                    )}
+                    {role} {company && <span className="text-dark-foreground">@{company}</span>}
                   </p>
                 </div>
               </div>

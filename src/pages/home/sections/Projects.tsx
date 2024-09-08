@@ -1,11 +1,12 @@
 import { Box, Button, Skeleton, Typography, useMediaQuery } from "@mui/material";
+import gsap from "gsap";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Carousel, { CarouselRef } from "../../../components/Carousel";
 import Title from "../../../components/Title";
 import { getAllProjects, selectAllProjects } from "../../../store/slices/project.slice";
-import gsap from "gsap";
 
 const ProjectCard = ({
   position,
@@ -64,13 +65,15 @@ const ProjectCard = ({
                 <p className="font-semibold leading-none">Located: {location}</p>
               </div>
             </div>
-            <Button
-              variant="outlined"
-              color="inherit"
-              className="capitalize text-base w-fit px-[60px] py-[14px] font-normal"
-            >
-              See More
-            </Button>
+            <Link to={`/projects/${project._id}`}>
+              <Button
+                variant="outlined"
+                color="inherit"
+                className="capitalize text-base w-fit px-[60px] py-[14px] font-normal"
+              >
+                See More
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="absolute bottom-8 -right-[26px] flex flex-col gap-4 text-white">
@@ -83,7 +86,7 @@ const ProjectCard = ({
         </div>
       </div>
       <div className="size-full grow bg-background">
-        <img src={image} alt="project image" className="size-full object-cover brightness-90" />
+        <img src={image} alt="project image" className="size-full object-cover brightness-95" />
       </div>
     </div>
   ) : (
@@ -91,7 +94,7 @@ const ProjectCard = ({
       <img
         src={image}
         alt="project image"
-        className="size-full object-cover absolute top-0 bottom-0 -z-10 brightness-90 border-collapse"
+        className="size-full object-cover absolute top-0 bottom-0 -z-10 brightness-95 border-collapse"
       />
       <div className="grow m-4">
         <Typography className="text-secondary text-[64px] xs:text-[88px] font-bold leading-none">{num}</Typography>
@@ -117,13 +120,15 @@ const ProjectCard = ({
           {name}
         </Typography>
         <p className="text-sm sm:text-base italic font-extralight mb-auto">{period}</p>
-        <Button
-          variant="outlined"
-          color="inherit"
-          className="capitalize w-full px-[40px] py-[8px] xs:py-[12px] mt-2 font-normal"
-        >
-          See More
-        </Button>
+        <Link to={`/projects/${project._id}`}>
+          <Button
+            variant="outlined"
+            color="inherit"
+            className="capitalize w-full px-[40px] py-[8px] xs:py-[12px] mt-2 font-normal"
+          >
+            See More
+          </Button>
+        </Link>
       </div>
     </div>
   );
@@ -214,14 +219,16 @@ const Projects = () => {
       <div className="w-full flex flex-row flex-wrap gap-4 justify-between items-center">
         <Title title="PROJECTS" ref={titleRef} />
         {!isSmallMobile && (
-          <Button
-            ref={buttonRef}
-            variant="contained"
-            color="secondary"
-            className="capitalize text-base w-fit px-10 font-normal"
-          >
-            View All
-          </Button>
+          <Link to="/projects">
+            <Button
+              ref={buttonRef}
+              variant="contained"
+              color="secondary"
+              className="capitalize text-base w-fit px-10 font-normal"
+            >
+              View All
+            </Button>
+          </Link>
         )}
       </div>
       <div
