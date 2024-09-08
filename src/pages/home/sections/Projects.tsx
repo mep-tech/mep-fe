@@ -31,7 +31,7 @@ const ProjectCard = ({
 
   return !isMobile ? (
     <div className="size-full flex flex-row">
-      <div className="size-full max-w-[60%] lg:max-w-[42%] bg-secondary flex flex-row relative">
+      <div className="size-full max-w-[60%] lg:max-w-[42%] bg-secondary flex flex-row relative z-10">
         <div className="text-white/25 text-[128px] font-bold my-auto m-4">{num}</div>
         <div className="px-4 py-8 grow flex flex-col justify-between gap-4 text-white">
           <div className="overflow-hidden w-[calc(100%_+_100px)] z-1">
@@ -51,7 +51,7 @@ const ProjectCard = ({
 									0px -4px ${theme.palette.secondary.main}
 								`,
               }}
-              className="font-bold text-[44px] leading-tight line-clamp-3"
+              className="font-bold text-[44px] leading-snug line-clamp-3"
             >
               {name}
             </Typography>
@@ -82,12 +82,50 @@ const ProjectCard = ({
           </Button>
         </div>
       </div>
-      <div className="size-full grow bg-red-500">
-        <img src={image} alt="project image" className="size-full object-cover" />
+      <div className="size-full grow bg-background">
+        <img src={image} alt="project image" className="size-full object-cover brightness-90" />
       </div>
     </div>
   ) : (
-    <div></div>
+    <div className="size-full flex flex-col relative">
+      <img
+        src={image}
+        alt="project image"
+        className="size-full object-cover absolute top-0 bottom-0 -z-10 brightness-90 border-collapse"
+      />
+      <div className="grow m-4">
+        <Typography className="text-secondary text-[64px] xs:text-[88px] font-bold leading-none">{num}</Typography>
+      </div>
+      <div className="p-4 px-6 flex flex-col gap-2 min-h-[50%] text-white bg-gradient-to-t from-secondary from-40% to-secondary/0">
+        <Typography
+          title="MOUNTAIN VIEW APARTMENT HOTEL GISOZI"
+          component="h2"
+          sx={{
+            textShadow: (theme) => `
+									2px 2px ${theme.palette.secondary.main},
+									-2px -2px ${theme.palette.secondary.main},
+									2px 0px ${theme.palette.secondary.main},
+									-2px 0px ${theme.palette.secondary.main},
+									2px -2px ${theme.palette.secondary.main},
+									-2px 2px ${theme.palette.secondary.main},
+									0px 2px ${theme.palette.secondary.main},
+									0px -2px ${theme.palette.secondary.main}
+								`,
+          }}
+          className="font-bold text-[28px] xs:text-[40px] sm:text-[44px] leading-snug line-clamp-3"
+        >
+          {name}
+        </Typography>
+        <p className="text-sm sm:text-base italic font-extralight mb-auto">{period}</p>
+        <Button
+          variant="outlined"
+          color="inherit"
+          className="capitalize w-full px-[40px] py-[8px] xs:py-[12px] mt-2 font-normal"
+        >
+          See More
+        </Button>
+      </div>
+    </div>
   );
 };
 
@@ -100,6 +138,7 @@ const Projects = () => {
   const titleRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const carouselContainerRef = useRef<HTMLDivElement>(null);
+  const isSmallMobile = useMediaQuery("(max-width: 425px)");
 
   useEffect(() => {
     dispatch(getAllProjects({ skip: 0, limit: 10 })).then(() => {
@@ -162,24 +201,33 @@ const Projects = () => {
   }, []);
 
   return (
-    <div ref={projectsContainerRef} id="projects" className="px-5 py-8 md:p-8 flex flex-col gap-8 relative">
+    <div
+      ref={projectsContainerRef}
+      id="projects"
+      className="px-4 py-8 md:p-8 flex flex-col gap-8 relative overflow-hidden"
+    >
       <Box
         component="img"
         src="/images/bg-3.png"
         className="size-full -z-10 absolute top-0 left-0 object-cover opacity-20"
       />
-      <div className="w-full flex flex-row gap-4 justify-between items-center">
+      <div className="w-full flex flex-row flex-wrap gap-4 justify-between items-center">
         <Title title="PROJECTS" ref={titleRef} />
-        <Button
-          ref={buttonRef}
-          variant="contained"
-          color="secondary"
-          className="capitalize text-base w-fit px-10 font-normal"
-        >
-          View All
-        </Button>
+        {!isSmallMobile && (
+          <Button
+            ref={buttonRef}
+            variant="contained"
+            color="secondary"
+            className="capitalize text-base w-fit px-10 font-normal"
+          >
+            View All
+          </Button>
+        )}
       </div>
-      <div ref={carouselContainerRef} className="size-full h-[521px] relative">
+      <div
+        ref={carouselContainerRef}
+        className="aspect-square md:aspect-auto w-full md:size-full min-h-[350px] md:h-[521px] relative"
+      >
         {!isLoading ? (
           <Carousel ref={carouselRef}>
             {projects.slice(0, 10).map((project, index) => (
@@ -204,6 +252,11 @@ const Projects = () => {
           </Skeleton>
         )}
       </div>
+      {isSmallMobile && (
+        <Button variant="contained" color="secondary" className="capitalize text-base w-full px-10 font-normal">
+          View All
+        </Button>
+      )}
     </div>
   );
 };

@@ -27,7 +27,7 @@ const Carousel = forwardRef<CarouselRef, CarouselProps>(
       const eventDisposable: any[] = [];
       const slides = slideContainerRef.current?.children as HTMLCollectionOf<HTMLElement>;
 
-      if (!slides) return;
+      if (!slides || slides.length <= 1) return;
 
       const ctx = gsap.context(() => {
         const numSlides = children.length;
@@ -72,11 +72,10 @@ const Carousel = forwardRef<CarouselRef, CarouselProps>(
         const updateProgress = () => {
           animation.progress(progressWrap(+gsap.getProperty(proxy, "x") / wrapWidth));
         };
-        function updateDraggable(this: any) {
+        const updateDraggable = () => {
           timer.pause();
-          slideAnimation.kill();
-          this.update();
-        }
+          slideAnimation.pause();
+        };
         const resize = () => {
           const norm = +gsap.getProperty(proxy, "x") / wrapWidth || 0;
 
@@ -111,17 +110,17 @@ const Carousel = forwardRef<CarouselRef, CarouselProps>(
 
         const draggable = new Draggable(proxy, {
           trigger: slideContainerRef.current,
-          onPress: updateDraggable,
-          onDrag: updateProgress,
-          onThrowUpdate: updateProgress,
-          onDragEnd: () => {
+          onRelease: () => {
             const prevDuration = slideDuration;
             // eslint-disable-next-line react-hooks/exhaustive-deps
             slideDuration = 1;
             animateSlides.current(0, () => {
-              console.log(slideDuration, prevDuration);
               slideDuration = prevDuration;
             });
+          },
+          onPress: updateDraggable,
+          onDrag: () => {
+            updateProgress();
           },
           snap: {
             x: snapX,

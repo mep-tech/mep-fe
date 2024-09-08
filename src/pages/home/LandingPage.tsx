@@ -20,7 +20,7 @@ const DualNavbar: React.FC = () => {
       <Intro scrollToSection={scrollToSection} />
       <About />
       <Stats />
-      {/* <Services /> */}
+      <Services />
       <WhyUs />
       <Projects />
       <Testimonials />
