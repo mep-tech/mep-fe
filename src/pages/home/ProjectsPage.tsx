@@ -60,7 +60,8 @@ const ProjectCard = ({ project, loadingActivities }: { project: any; loadingActi
               sx={{ scrollbarWidth: "none" }}
               className="my-3 xs:my-4 w-full flex flex-row gap-2 overflow-auto snap-x snap-mandatory"
             >
-              {loadingActivities && Array.from({ length: 3 }).map((_, i) => <ProjectActivityChipSkeleton key={i} />)}
+              {loadingActivities &&
+                Array.from({ length: 3 }).map((_, i) => <ProjectActivityChipSkeleton key={i} setWhite={false} />)}
               {!loadingActivities &&
                 activities?.length > 0 &&
                 activities.map(({ _id, name, image }: any) => (

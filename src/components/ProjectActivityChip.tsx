@@ -1,4 +1,5 @@
 import { Skeleton, Typography } from "@mui/material";
+import clsx from "clsx";
 import { memo } from "react";
 
 export const ProjectActivityChip = memo(({ image, name }: { image?: string; name: string }) => {
@@ -12,6 +13,13 @@ export const ProjectActivityChip = memo(({ image, name }: { image?: string; name
   );
 });
 
-export const ProjectActivityChipSkeleton = memo(() => {
-  return <Skeleton variant="rounded" width={150} height={36} className="rounded-full bg-white/50"></Skeleton>;
+export const ProjectActivityChipSkeleton = memo(({ setWhite = true }: { setWhite?: boolean }) => {
+  return (
+    <Skeleton
+      variant="rounded"
+      width={150}
+      height={36}
+      className={clsx("rounded-full", setWhite && "bg-white/50")}
+    ></Skeleton>
+  );
 });
