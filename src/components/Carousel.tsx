@@ -1,7 +1,13 @@
 import clsx from "clsx";
 import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
-import { forwardRef, ReactElement, useImperativeHandle, useLayoutEffect, useRef } from "react";
+import {
+  forwardRef,
+  ReactElement,
+  useImperativeHandle,
+  useLayoutEffect,
+  useRef,
+} from "react";
 
 gsap.registerPlugin(Draggable);
 
@@ -19,13 +25,26 @@ type CarouselProps = {
 };
 
 const Carousel = forwardRef<CarouselRef, CarouselProps>(
-  ({ children, className, slideDelay = 3, slideDuration = 2, wrap = true, ...props }, ref) => {
-    const animateSlides = useRef<(direction: number, onComplete?: () => void) => void>(() => {});
+  (
+    {
+      children,
+      className,
+      slideDelay = 3,
+      slideDuration = 2,
+      wrap = true,
+      ...props
+    },
+    ref
+  ) => {
+    const animateSlides = useRef<
+      (direction: number, onComplete?: () => void) => void
+    >(() => {});
     const slideContainerRef = useRef<HTMLDivElement>(null);
 
     useLayoutEffect(() => {
       const eventDisposable: any[] = [];
-      const slides = slideContainerRef.current?.children as HTMLCollectionOf<HTMLElement>;
+      const slides = slideContainerRef.current
+        ?.children as HTMLCollectionOf<HTMLElement>;
 
       if (!slides || slides.length <= 1) return;
 
@@ -42,12 +61,19 @@ const Carousel = forwardRef<CarouselRef, CarouselProps>(
 
         const snapX = (value: number) => {
           const snapped = gsap.utils.snap(slideWidth, value);
-          return wrap ? snapped : gsap.utils.clamp(-slideWidth * (numSlides - 1), 0, snapped);
+          return wrap
+            ? snapped
+            : gsap.utils.clamp(-slideWidth * (numSlides - 1), 0, snapped);
         };
-        animateSlides.current = (direction: number, onComplete?: () => void) => {
+        animateSlides.current = (
+          direction: number,
+          onComplete?: () => void
+        ) => {
           timer.pause();
           slideAnimation.kill();
-          const x = snapX(+gsap.getProperty(proxy, "x") + direction * slideWidth);
+          const x = snapX(
+            +gsap.getProperty(proxy, "x") + direction * slideWidth
+          );
 
           slideAnimation = gsap.to(proxy, {
             x: x,
@@ -61,7 +87,11 @@ const Carousel = forwardRef<CarouselRef, CarouselProps>(
         };
 
         const autoPlay = () => {
-          if (draggable.isPressed || draggable.isDragging || draggable.isThrowing) {
+          if (
+            draggable.isPressed ||
+            draggable.isDragging ||
+            draggable.isThrowing
+          ) {
             timer.pause();
           } else {
             animateSlides.current(-1);
@@ -70,7 +100,9 @@ const Carousel = forwardRef<CarouselRef, CarouselProps>(
         const timer = gsap.delayedCall(slideDelay, autoPlay);
 
         const updateProgress = () => {
-          animation.progress(progressWrap(+gsap.getProperty(proxy, "x") / wrapWidth));
+          animation.progress(
+            progressWrap(+gsap.getProperty(proxy, "x") / wrapWidth)
+          );
         };
         const updateDraggable = () => {
           timer.pause();
@@ -82,7 +114,11 @@ const Carousel = forwardRef<CarouselRef, CarouselProps>(
           slideWidth = slides[0].offsetWidth;
           wrapWidth = slideWidth * numSlides;
 
-          if (!wrap) draggable.applyBounds({ minX: -slideWidth * (numSlides - 1), maxX: 0 });
+          if (!wrap)
+            draggable.applyBounds({
+              minX: -slideWidth * (numSlides - 1),
+              maxX: 0,
+            });
 
           gsap.set(proxy, { x: norm * wrapWidth });
 
@@ -150,8 +186,12 @@ const Carousel = forwardRef<CarouselRef, CarouselProps>(
     }));
 
     return (
-      <div ref={slideContainerRef} className={clsx("size-full overflow-hidden flex-1 relative", className)} {...props}>
-        {children.map((slides, index) => {
+      <div
+        ref={slideContainerRef}
+        className={clsx("size-full overflow-hidden flex-1 relative", className)}
+        {...props}
+      >
+        {children.map((slides: any, index: number) => {
           return (
             <div key={index} className="size-full absolute top-0 left-0">
               {slides}
