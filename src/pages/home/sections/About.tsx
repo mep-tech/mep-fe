@@ -129,8 +129,11 @@ const About: React.FC = () => {
           services tailored to specific project needs
         </p>
         <Button
-          className="bg-secondary text-white capitalize text-base w-fit px-14 py-4 mt-10 font-normal"
+          className="bg-secondary hover:bg-secondary/80 text-white capitalize text-base w-fit px-14 py-4 mt-10 font-normal"
           ref={buttonRef}
+          onClick={() => {
+            window.location.href = "/about";
+          }}
         >
           Read more
         </Button>

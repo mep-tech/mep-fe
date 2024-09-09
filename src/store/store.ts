@@ -4,20 +4,24 @@ import activitySlice from "./slices/activity.slice";
 import gallerySlice from "./slices/gallery.slice";
 import projectSlice from "./slices/project.slice";
 import testimonialSlice from "./slices/testimonial.slice";
+import memberSlice from "./slices/member.slice";
+import certificateSlice from "./slices/certificate.slice";
 
 const logger = createLogger({
-	collapsed: true,
-	timestamp: true,
-})
+  collapsed: true,
+  timestamp: true,
+});
 
 export const store = configureStore({
-	reducer: {
-		project: projectSlice.reducer,
-		testimonial: testimonialSlice.reducer,
-		activity: activitySlice.reducer,
-		gallery: gallerySlice.reducer,
-	},
-	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  reducer: {
+    project: projectSlice.reducer,
+    testimonial: testimonialSlice.reducer,
+    activity: activitySlice.reducer,
+    gallery: gallerySlice.reducer,
+    member: memberSlice.reducer,
+    certificate: certificateSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

@@ -7,18 +7,22 @@ import NavBar from "../../components/NavBar";
 
 const Contact = () => {
   return (
-    <>
+    <div>
       <NavBar fixNavBar={false} />
-      <div id="home" className="min-h-[1440px] relative bg-background">
+      <div id="contact" className="min-h-[1440px] relative bg-background">
         <div className="relative md:h-[calc(100vh_-_64px)] h-screen contact-container flex flex-col">
-          <div className="z-50 flex-1 w-full md:w-auto md:text-center text-left absolute md:left-[150px] left-1/2 msd:top-1/3 top-[15%] transform md:translate-x-0 -translate-x-1/2 -translate-y-1/2">
-            <div className="">
+          <div className="z-50 flex-1 w-full md:w-auto md:text-center text-left absolute md:left-[150px] left-1/2 md:top-1/3 top-[15%] transform md:translate-x-0 -translate-x-1/2 -translate-y-1/2">
+            <div className="md:pl-0 pl-4">
               <BackButton />
             </div>
           </div>
           <div className="z-50 flex-1 w-full md:w-auto text-center md:text-left absolute md:left-[150px] left-1/2 md:top-1/2 sm:top-[60%] top-[25%] transform md:translate-x-0 -translate-x-1/2 -translate-y-1/2">
-            <h1 className="text-white xs:text-6xl text-4xl font-bold uppercase">Contact Us</h1>
-            <p className="text-white/90 md:block xs:hidden block">Twegere tuguhe ibyo ushaka byose</p>
+            <h1 className="text-white xs:text-6xl text-4xl font-bold uppercase">
+              Contact Us
+            </h1>
+            <p className="text-white/90 md:block xs:hidden block">
+              Twegere tuguhe ibyo ushaka byose
+            </p>
           </div>
           <img
             src="/images/secretary.png"
@@ -35,7 +39,9 @@ const Contact = () => {
                 </div>
                 <div className="">
                   <h1 className="text-[20px] font-bold">Head Office</h1>
-                  <h1 className="">Remera - Gisimenti/ Ikaze House F2-22; Kigali - Rwanda</h1>
+                  <h1 className="">
+                    Remera - Gisimenti/ Ikaze House F2-22; Kigali - Rwanda
+                  </h1>
                 </div>
               </div>
               <div className="flex gap-2 mt-4">
@@ -65,7 +71,9 @@ const Contact = () => {
               </div>
               <div className="w-full h-[0.5px] bg-dark/50 my-10" />
               <div className="px-4">
-                <h1 className="text-[18px] font-bold">Follow our social media</h1>
+                <h1 className="text-[18px] font-bold">
+                  Follow our social media
+                </h1>
                 <div className="flex flex-row flex-wrap gap-2 items-center mt-3">
                   {mediaLinks.map((link) => (
                     <a
@@ -80,8 +88,10 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-primary rounded-r-[40px] md:rounded-l-none rounded-l-[40px] flex-1 py-10">
-              <h1 className="sm:text-4xl text-2xl font-bold text-center text-white">Send us a message</h1>
+            <div className="bg-primary md:rounded-r-[40px] rounded-r-[10px] md:rounded-l-none rounded-l-[10px] flex-1 py-10">
+              <h1 className="sm:text-4xl text-2xl font-bold text-center text-white">
+                Send us a message
+              </h1>
               <div className="sm:px-8 px-4 pt-8">
                 <div className="">
                   <h1 className="text-white mb-2">Names</h1>
@@ -168,7 +178,7 @@ const Contact = () => {
             </div>
           </div>
         </div>
-        <div className="absolute bottom-0 right-0 left-0 h-[300px] w-full bg-black/0 md:pt-0 pt-12">
+        <div className="absolute -bottom-[100px] right-0 left-0 h-[400px] w-full bg-black/0 md:pt-0 pt-12">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.482461408577!2d30.105876074588245!3d-1.960674798021562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca65447effcd3%3A0xd265fb1830816643!2sIKAZE%20Internet%20Cafe%20and%20photo%20studio%20Kismenti%20Remera!5e0!3m2!1sen!2srw!4v1725787049666!5m2!1sen!2srw"
             style={{ border: 0 }}
@@ -178,7 +188,7 @@ const Contact = () => {
           <Footer />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
