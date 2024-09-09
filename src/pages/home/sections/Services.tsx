@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLayoutEffect } from "react";
 import Title from "../../../components/Title";
+import { useMediaQuery } from "@mui/material";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,6 +42,8 @@ const servicesDetails = [
 ];
 
 const Services = () => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       servicesDetails.forEach((service, index) => {
@@ -72,7 +75,7 @@ const Services = () => {
             directional: true,
           },
           start: "top top",
-          end: () => `+=${(servicesImages.length - 1) * 2}00%`,
+          end: () => `+=${(servicesImages.length - 1) * (!isMobile ? 2 : 1)}00%`,
         },
       });
 

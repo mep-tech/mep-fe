@@ -105,7 +105,7 @@ const About: React.FC = () => {
       </div>
       <div className="flex flex-col lg:w-1/2 w-full" ref={textRef}>
         <p className="text-secondary">About Us</p>
-        <h1 className="text-4xl font-semibold text-dark mb-6">
+        <h1 className="sm:text-4xl text-2xl font-semibold text-dark mb-6">
           Welcome To MEP Erictric Technology Ltd
         </h1>
         <img
@@ -113,7 +113,7 @@ const About: React.FC = () => {
           alt="logo"
           className="w-full object-contain mb-4 block lg:hidden"
         />
-        <p className="mb-4">
+        <p className="mb-4 md:text-base text-sm">
           We are a leading provider of Mechanical, Electrical, and Plumbing
           (MEP) services for various projects. Specializing in
           elevators/escalators, CCTV cameras, firefighting systems, and domestic
@@ -124,7 +124,7 @@ const About: React.FC = () => {
           Electric Technology Ltd delivers innovative MEP solutions, completing
           projects on time and within budget.{" "}
         </p>
-        <p className="">
+        <p className="md:text-base text-sm">
           Prospective clients are invited to contact them for customized
           services tailored to specific project needs
         </p>
