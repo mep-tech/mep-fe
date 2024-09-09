@@ -55,7 +55,7 @@ const Footer = () => {
             <div>
               <h2 className="font-semibold text-2xl mb-1">Quick Links</h2>
               {LandingNavLinks.map((link) => (
-                <div key={link.name} className="flex flex-row gap-1 items-center">
+                <div key={link.name} className="flex flex-row gap-1 my-2 items-center">
                   <MdOutlineKeyboardArrowRight size="24px" className="text-[#AAAAAA]" />
                   <a
                     href={link.href}
@@ -70,64 +70,71 @@ const Footer = () => {
 
             <div>
               <h2 className="font-semibold text-2xl mb-1">Our Address</h2>
-              <div className="flex flex-row items-center gap-2 my-1">
-                <HiOutlineMapPin size="30px" className="text-secondary" />
+              <div className="flex flex-row items-center gap-2 my-3">
+                <HiOutlineMapPin size="35px" className="text-secondary" />
                 <p>
                   Remera - Gisimenti,
                   <br />
                   Ikaze House F2-22
                 </p>
               </div>
-              <div className="flex flex-row items-center gap-2 my-1">
-                <FiPhone size="30px" className="text-secondary" />
+              <div className="flex flex-row items-center gap-2 my-3">
+                <FiPhone size="35px" className="text-secondary" />
                 <p>
                   +250785920279,
                   <br />
                   +250781175264
                 </p>
               </div>
-              <div className="flex flex-row items-center gap-2 my-1">
-                <HiOutlineMail size="30px" className="text-secondary" />
+              <div className="flex flex-row items-center gap-2 my-3">
+                <HiOutlineMail size="35px" className="text-secondary" />
                 <p>meperictric40@gmail.com</p>
               </div>
             </div>
 
             <div>
               <h2 className="font-semibold text-2xl mb-1">Business Hours</h2>
-              <table>
+              <Box
+                component="table"
+                sx={{
+                  ["& td"]: {
+                    padding: "5px 0",
+                  },
+                }}
+              >
                 <tbody>
                   <tr>
-                    <td align="right" className="pr-2 font-semibold">
+                    <td align="right" className="!pr-2 font-semibold">
                       Mon - Fri:
                     </td>
                     <td>9:00 am - 5:00 pm</td>
                   </tr>
                   <tr>
-                    <td align="right" className="pr-2 font-semibold">
+                    <td align="right" className="!pr-2 font-semibold">
                       Sat:
                     </td>
                     <td>09:00 am - 12:00 pm</td>
                   </tr>
                   <tr>
-                    <td align="right" className="pr-2 font-semibold">
+                    <td align="right" className="!pr-2 font-semibold">
                       Sun:
                     </td>
                     <td>Closed</td>
                   </tr>
                 </tbody>
-              </table>
+              </Box>
             </div>
           </div>
         </div>
-        <div className="flex flex-row flex-wrap gap-2 items-center mt-8">
+        <div className="flex flex-row flex-wrap gap-6 items-center mt-8">
           {mediaLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
               target="_blank"
-              className="text-secondary p-3 rounded-full bg-white hover:bg-background transition-colors duration-200"
+              className="text-secondary p-[11px] rounded-full bg-white hover:bg-background transition-colors duration-200"
             >
-              <link.component size="24px" />
+              <link.component size="20px" />
             </a>
           ))}
         </div>

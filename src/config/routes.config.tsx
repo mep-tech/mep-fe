@@ -1,5 +1,5 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
-import Contact from "../pages/contact/Contact";
+import Contact from "../pages/home/Contact";
 import LandingPage from "../pages/home/LandingPage";
 import ProjectPage from "../pages/home/ProjectPage";
 import ProjectsPage from "../pages/home/ProjectsPage";

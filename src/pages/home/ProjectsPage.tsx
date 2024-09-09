@@ -10,23 +10,15 @@ import { Link } from "react-router-dom";
 import BackButton from "../../components/BackButton";
 import Footer from "../../components/Footer";
 import NavBar from "../../components/NavBar";
+import { ProjectActivityChip, ProjectActivityChipSkeleton } from "../../components/ProjectActivityChip";
 import TopBar from "../../components/TopBar";
+import { getAllActivities, selectAllActivities } from "../../store/slices/activity.slice";
 import { getAllProjects, selectAllProjects } from "../../store/slices/project.slice";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ProjectActivityChip = ({ image, name }: { image: string; name: string }) => {
-  return (
-    <div className="bg-background rounded-full py-1 px-2 xs:py-2 xs:px-4 max-w-fit flex flex-row items-center gap-1 h-min min-w-max snap-start">
-      <img src={image} alt={`${name} activity`} className="size-4 xs:size-6 object-contain" />
-      <Typography variant="body2" className="font-xs xs:font-normal leading-normal">
-        {name}
-      </Typography>
-    </div>
-  );
-};
-
-const ProjectCard = ({ project }: { project: any }) => {
+const ProjectCard = ({ project, loadingActivities }: { project: any; loadingActivities: boolean }) => {
+  const allActivities = useSelector(selectAllActivities);
   const { name, location, startDate, endDate, image } = project;
   const projectCardRef = useRef<HTMLDivElement>(null);
 
@@ -37,6 +29,10 @@ const ProjectCard = ({ project }: { project: any }) => {
     if (!end || start === end) return start;
     return `${start} - ${end}`;
   }, [startDate, endDate]);
+
+  const activities = useMemo(() => {
+    return allActivities.filter((activity) => project.activities.includes(activity._id));
+  }, [allActivities, project.activities]);
 
   useLayoutEffect(() => {
     gsap.fromTo(
@@ -53,7 +49,7 @@ const ProjectCard = ({ project }: { project: any }) => {
         className="max-w-[550px] aspect-square p-[12px] xs:p-[18px] flex flex-col rounded-3xl overflow-hidden bg-white transition-shadow shadow-md hover:shadow-lg cursor-pointer"
       >
         <div className="size-full rounded-xl xs:rounded-2xl overflow-hidden">
-          <img src={image} alt={name} className="size-full object-cover brightness-95" />
+          <img src={image} alt={name} className="size-full object-cover brightness-95 bg-background" />
         </div>
         <div className="grow">
           <div>
@@ -64,10 +60,13 @@ const ProjectCard = ({ project }: { project: any }) => {
               sx={{ scrollbarWidth: "none" }}
               className="my-3 xs:my-4 w-full flex flex-row gap-2 overflow-auto snap-x snap-mandatory"
             >
-              <ProjectActivityChip image="/images/bg-1.jpg" name="Electrical plumbing etc" />
-              <ProjectActivityChip image="/images/bg-1.jpg" name="Electrical plumbing etc" />
-              <ProjectActivityChip image="/images/bg-1.jpg" name="Electrical plumbing etc" />
-              <ProjectActivityChip image="/images/bg-1.jpg" name="Electrical plumbing etc" />
+              {loadingActivities && Array.from({ length: 3 }).map((_, i) => <ProjectActivityChipSkeleton key={i} />)}
+              {!loadingActivities &&
+                activities?.length > 0 &&
+                activities.map(({ _id, name, image }: any) => (
+                  <ProjectActivityChip key={_id} name={name} image={image} />
+                ))}
+              {!loadingActivities && activities?.length <= 0 && <ProjectActivityChip name={"No activities found"} />}
             </Box>
           </div>
           <div className="w-full h-[1.4px] bg-[#AAAAAA] rounded-full" />
@@ -91,6 +90,7 @@ const ProjectsPage = () => {
   const dispatch = useDispatch<any>();
   const projects = useSelector(selectAllProjects);
   const [loading, setLoading] = useState(true);
+  const [loadingActivities, setLoadingActivities] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const topContainerRef = useRef<HTMLDivElement>(null);
 
@@ -98,6 +98,9 @@ const ProjectsPage = () => {
     dispatch(getAllProjects()).then(({ error }: any) => {
       setLoading(false);
       if (error) setError(error.message);
+    });
+    dispatch(getAllActivities()).then(() => {
+      setLoadingActivities(false);
     });
   }, [dispatch]);
   useLayoutEffect(() => {
@@ -120,7 +123,7 @@ const ProjectsPage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-4 min-h-screen ">
+    <div className="flex flex-col gap-4 min-h-screen">
       <div className="relative">
         <TopBar />
         <NavBar />
@@ -149,7 +152,9 @@ const ProjectsPage = () => {
         <div className="grow grid grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3 gap-4 md:gap-6 p-4 sm:p-8 md:py-10 md:px-16 mx-auto">
           {!loading &&
             projects.length > 0 &&
-            projects.map((project: any) => <ProjectCard key={project._id} project={project} />)}
+            projects.map((project: any) => (
+              <ProjectCard key={project._id} project={project} loadingActivities={loadingActivities} />
+            ))}
           {!loading && projects.length <= 0 && (
             <div className="text-center max-w-[900px] px-8 py-16 mx-auto col-span-full">
               <h3 className="text-primary-foreground font-medium text-lg md:text-xl mb-2">No projects found!</h3>
@@ -172,7 +177,7 @@ const ProjectsPage = () => {
             Oooops! we were unable to fetch the desired content. Please refresh the page or contact us if the issue
             persist!
           </h3>
-          <p className="text-red-500 text-sm md:text-base">Error: {error}</p>
+          <p className="text-red-500 text-sm md:text-base break-all">Error: {error}</p>
           <Button variant="outlined" color="error" className="mt-4" onClick={() => window.location.reload()}>
             Click to Refresh
           </Button>
