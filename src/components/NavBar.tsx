@@ -1,14 +1,27 @@
-import { Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import {
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { IoArrowForward } from "react-icons/io5";
 import { RiMenu3Fill } from "react-icons/ri";
-import { Link } from "react-router-dom";
 import { LandingNavLinks } from "../constants/landing-navlinks";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { scrollToSection } from "../utils/scroll.utils";
 
 const NavBar = ({ fixNavBar = true }: { fixNavBar?: boolean }) => {
   const [pageScrolled, setPageScrolled] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
+  const pathName = useLocation().pathname;
+  const navigate = useNavigate();
+  const onOuterPages =
+    pathName.split("/").includes("contact") ||
+    pathName.split("/").includes("about");
 
   useEffect(() => {
     const scrollAction = () => {
@@ -20,6 +33,14 @@ const NavBar = ({ fixNavBar = true }: { fixNavBar?: boolean }) => {
     };
     window.addEventListener("scroll", scrollAction);
   }, []);
+
+  const handleNavigation = (slug: string) => {
+    if (onOuterPages) {
+      navigate(`/#${slug}`);
+    } else {
+      scrollToSection(slug);
+    }
+  };
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -38,7 +59,13 @@ const NavBar = ({ fixNavBar = true }: { fixNavBar?: boolean }) => {
         `}
       >
         <div className="w-full flex items-center justify-between gap-4 px-2 lg:px-10">
-          {(pageScrolled || !fixNavBar) && <img src="/logo-half.png" alt="logo" className="h-10 w-10 object-contain" />}
+          {(pageScrolled || !fixNavBar) && (
+            <img
+              src="/logo-half.png"
+              alt="logo"
+              className="h-10 w-10 object-contain"
+            />
+          )}
           <div className="flex justify-evenly px-2 lg:px-6 h-[64px] py-2 w-full items-center gap-4">
             {LandingNavLinks.map((item, index) =>
               item.name === "contact" ? (
@@ -52,9 +79,7 @@ const NavBar = ({ fixNavBar = true }: { fixNavBar?: boolean }) => {
               ) : (
                 <span
                   key={index}
-                  onClick={() => {
-                    scrollToSection(item.slug);
-                  }}
+                  onClick={() => handleNavigation(item.slug)}
                   className="text-white capitalize hover:text-secondary cursor-pointer"
                 >
                   {item.name}
@@ -70,7 +95,11 @@ const NavBar = ({ fixNavBar = true }: { fixNavBar?: boolean }) => {
         }`}
       >
         <div>
-          <img src="/logo-full.png" alt="logo" className="h-10 object-contain" />
+          <img
+            src="/logo-full.png"
+            alt="logo"
+            className="h-10 object-contain"
+          />
         </div>
         <div className="flex items-center gap-2">
           <IconButton
@@ -99,10 +128,18 @@ const NavBar = ({ fixNavBar = true }: { fixNavBar?: boolean }) => {
       >
         <div className="w-[250px] bg-primary text-white">
           <List>
-            <ListItem disablePadding className={``} onClick={toggleDrawer(false)}>
+            <ListItem
+              disablePadding
+              className={``}
+              onClick={toggleDrawer(false)}
+            >
               <ListItemButton>
                 <div className="w-full flex items-center justify-between">
-                  <img src="/logo-half.png" alt="logo" className="h-10 w-10 object-contain" />
+                  <img
+                    src="/logo-half.png"
+                    alt="logo"
+                    className="h-10 w-10 object-contain"
+                  />
                   <IconButton className="">
                     <IoArrowForward className="text-white" />
                   </IconButton>
@@ -119,13 +156,24 @@ const NavBar = ({ fixNavBar = true }: { fixNavBar?: boolean }) => {
                 <div
                   onClick={() => {
                     setOpen(false);
-                    scrollToSection(item.slug);
+                    if (item.name === "contact") {
+                      navigate("/contact");
+                    } else {
+                      handleNavigation(item.slug);
+                    }
                   }}
                   key={index}
                 >
-                  <ListItem disablePadding key={index} className={`hover:bg-primary hover:text-secondary`}>
+                  <ListItem
+                    disablePadding
+                    key={index}
+                    className={`hover:bg-primary hover:text-secondary`}
+                  >
                     <ListItemButton>
-                      <ListItemText primary={item.name} className="capitalize text-center" />
+                      <ListItemText
+                        primary={item.name}
+                        className="capitalize text-center"
+                      />
                     </ListItemButton>
                   </ListItem>
                   <Divider />
