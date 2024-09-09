@@ -23,25 +23,7 @@ const Testimonials = () => {
       <div className="max-w-[1440px] mx-auto py-8">
         <Title title="TESTIMONIALS" color="common.black" className="mx-auto" />
         <div className="size-full xl:h-[521px] xs:h-[600px] h-[760px] relative md:p-4">
-          <IconButton
-            onClick={() => carouselRef.current?.onPreviousClick()}
-            className="absolute top-1/2 left-4 bg-white hover:bg-zinc-100 shadow-lg transform -translate-y-1/2 !z-10 md:block hidden"
-          >
-            <MdOutlineChevronLeft className="text-dark text-2xl" />
-          </IconButton>
-          <IconButton
-            onClick={() => carouselRef.current?.onNextClick()}
-            className="absolute top-1/2 right-4 bg-white hover:bg-zinc-100 shadow-lg transform -translate-y-1/2 !z-10 md:block hidden"
-          >
-            <MdOutlineChevronRight className="text-dark text-2xl" />
-          </IconButton>
-          {!loading ? (
-            <Carousel ref={carouselRef} slideDelay={5} slideDuration={1}>
-              {testimonials.slice(0, 10).map((testimonial) => (
-                <TestimonialCard key={testimonial._id} testimonial={testimonial} />
-              ))}
-            </Carousel>
-          ) : (
+          {loading && (
             <Skeleton
               animation="wave"
               variant="rectangular"
@@ -51,6 +33,35 @@ const Testimonials = () => {
             >
               Fetching Testimonials...
             </Skeleton>
+          )}
+          {!loading && testimonials?.length > 0 && (
+            <>
+              <Carousel ref={carouselRef} slideDelay={5} slideDuration={1}>
+                {testimonials.slice(0, 10).map((testimonial) => (
+                  <TestimonialCard key={testimonial._id} testimonial={testimonial} />
+                ))}
+              </Carousel>
+              <IconButton
+                onClick={() => carouselRef.current?.onPreviousClick()}
+                className="absolute top-1/2 left-4 bg-white hover:bg-zinc-100 shadow-lg transform -translate-y-1/2 !z-10 md:block hidden"
+              >
+                <MdOutlineChevronLeft className="text-dark text-2xl" />
+              </IconButton>
+              <IconButton
+                onClick={() => carouselRef.current?.onNextClick()}
+                className="absolute top-1/2 right-4 bg-white hover:bg-zinc-100 shadow-lg transform -translate-y-1/2 !z-10 md:block hidden"
+              >
+                <MdOutlineChevronRight className="text-dark text-2xl" />
+              </IconButton>
+            </>
+          )}
+          {!loading && !(testimonials?.length > 0) && (
+            <div className="size-full flex items-center justify-center">
+              <div className="text-center max-w-[900px] px-8 py-16 mx-auto col-span-full ">
+                <h3 className="text-primary-foreground font-medium text-xl md:text-3xl mb-2">No testimonials found!</h3>
+                <p className="text-dark text-sm md:text-base">Be the first to share your experience with us.</p>
+              </div>
+            </div>
           )}
         </div>
       </div>

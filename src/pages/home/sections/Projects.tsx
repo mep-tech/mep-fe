@@ -235,7 +235,18 @@ const Projects = () => {
         ref={carouselContainerRef}
         className="aspect-square md:aspect-auto w-full md:size-full min-h-[350px] md:h-[521px] relative"
       >
-        {!isLoading ? (
+        {isLoading && (
+          <Skeleton
+            animation="wave"
+            variant="rectangular"
+            height="100%"
+            width="100%"
+            className="flex items-center justify-center font-bold text-3xl text-secondary"
+          >
+            Fetching Projects...
+          </Skeleton>
+        )}
+        {!isLoading && projects?.length > 0 && (
           <Carousel ref={carouselRef}>
             {projects.slice(0, 10).map((project, index) => (
               <ProjectCard
@@ -247,16 +258,16 @@ const Projects = () => {
               />
             ))}
           </Carousel>
-        ) : (
-          <Skeleton
-            animation="wave"
-            variant="rectangular"
-            height="100%"
-            width="100%"
-            className="flex items-center justify-center font-bold text-3xl text-secondary"
-          >
-            Fetching Projects...
-          </Skeleton>
+        )}
+        {!isLoading && !(projects?.length > 0) && (
+          <div className="size-full flex items-center justify-center">
+            <div className="text-center max-w-[900px] px-8 py-16 mx-auto col-span-full bg-white/50">
+              <h3 className="text-primary-foreground font-medium text-xl md:text-3xl mb-2">No projects found!</h3>
+              <p className="text-dark text-sm md:text-base">
+                We are currently working on new projects. Please check back later!
+              </p>
+            </div>
+          </div>
         )}
       </div>
       {isSmallMobile && (
