@@ -20,8 +20,8 @@ const WhyUsCard = forwardRef<HTMLDivElement, WhyUsCardProps>(
       >
         <div className="flex flex-col gap-2 p-5">
           <img src={image} alt={title} className="text-primary w-20" />
-          <h3 className="text-2xl font-semibold">{title}</h3>
-          <p className="">{description}</p>
+          <h3 className="sm:text-2xl text-xl font-semibold">{title}</h3>
+          <p className="md:text-base text-sm">{description}</p>
         </div>
         <div className="w-full h-5 bg-secondary"></div>
       </div>

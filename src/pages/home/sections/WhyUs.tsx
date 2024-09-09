@@ -120,7 +120,7 @@ const WhyUs: React.FC = () => {
   return (
     <div
       id="why-us"
-      className="min-h-screen h-fit py-10 flex items-center image-container"
+      className="h-fit py-10 flex items-center image-container overflow-x-hidden"
     >
       <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-10 gap-4 lg:px-16 px-4 z-10">
         <div ref={introRef} className="text-white">
@@ -130,7 +130,7 @@ const WhyUs: React.FC = () => {
             color="common.white"
             className="uppercase"
           />
-          <p className="text-lg mt-4">
+          <p className="sm:text-lg text-base mt-4">
             We are a team of professionals who are dedicated to providing the
             best services to our clients. Here are some reasons why you should
             choose us.

@@ -68,8 +68,10 @@ const Stats = () => {
               <div className="bg-secondary aspect-square flex items-center rounded-full p-7">
                 {stat.icon}
               </div>
-              <h1 className="text-white text-5xl font-bold">{stat.count}</h1>
-              <p className="text-white text-2xl">{stat.title}</p>
+              <h1 className="text-white sm:text-5xl text-3xl font-bold">
+                {stat.count}
+              </h1>
+              <p className="text-white sm:text-2xl text-lg">{stat.title}</p>
             </div>
           ))}
         </div>

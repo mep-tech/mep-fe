@@ -5,7 +5,10 @@ import { MdOutlineChevronLeft, MdOutlineChevronRight } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import Carousel, { CarouselRef } from "../../../components/Carousel";
 import Title from "../../../components/Title";
-import { getAllTestimonials, selectAllTestimonials } from "../../../store/slices/testimonial.slice";
+import {
+  getAllTestimonials,
+  selectAllTestimonials,
+} from "../../../store/slices/testimonial.slice";
 
 const Testimonials = () => {
   const dispatch = useDispatch<any>();
@@ -38,7 +41,10 @@ const Testimonials = () => {
             <>
               <Carousel ref={carouselRef} slideDelay={5} slideDuration={1}>
                 {testimonials.slice(0, 10).map((testimonial) => (
-                  <TestimonialCard key={testimonial._id} testimonial={testimonial} />
+                  <TestimonialCard
+                    key={testimonial._id}
+                    testimonial={testimonial}
+                  />
                 ))}
               </Carousel>
               <IconButton
@@ -58,8 +64,12 @@ const Testimonials = () => {
           {!loading && !(testimonials?.length > 0) && (
             <div className="size-full flex items-center justify-center">
               <div className="text-center max-w-[900px] px-8 py-16 mx-auto col-span-full ">
-                <h3 className="text-primary-foreground font-medium text-xl md:text-3xl mb-2">No testimonials found!</h3>
-                <p className="text-dark text-sm md:text-base">Be the first to share your experience with us.</p>
+                <h3 className="text-primary-foreground font-medium text-xl md:text-3xl mb-2">
+                  No testimonials found!
+                </h3>
+                <p className="text-dark text-sm md:text-base">
+                  Be the first to share your experience with us.
+                </p>
               </div>
             </div>
           )}
@@ -84,7 +94,11 @@ const TestimonialCard = ({
               <div
                 className={`h-full bg-muted w-[300px] flex-none md:flex hidden items-center justify-center rounded-l-lg px-6`}
               >
-                <img src={companyLogo} alt={names} className="object-contain w-full h-full" />
+                <img
+                  src={companyLogo}
+                  alt={names}
+                  className="object-contain w-full h-full"
+                />
               </div>
             )}
             {siteImage && !companyLogo && (
@@ -99,21 +113,32 @@ const TestimonialCard = ({
             )}
             <div
               className={`sm:p-12 p-4 bg-white text-white rounded-r-lg  
-              ${!companyLogo && !siteImage ? "rounded-l-lg" : "md:rounded-l-0 rounded-l-lg"}
+              ${
+                !companyLogo && !siteImage
+                  ? "rounded-l-lg"
+                  : "md:rounded-l-0 rounded-l-lg"
+              }
               `}
             >
               <div className="flex items-center">
-                <img src={image} alt={names} className="w-20 h-20 rounded-full" />
+                <img
+                  src={image}
+                  alt={names}
+                  className="w-20 h-20 rounded-full"
+                />
                 <div className="ml-4">
                   <p className="font-bold text-lg text-dark">{names}</p>
                   <p className="text-sm text-secondary">
-                    {role} {company && <span className="text-dark-foreground">@{company}</span>}
+                    {role}{" "}
+                    {company && (
+                      <span className="text-dark-foreground">@{company}</span>
+                    )}
                   </p>
                 </div>
               </div>
               <div className="relative bg-pink-500/0 pt-4">
                 <FaQuoteRight className="absolute text-7xl text-black/10 top-0 left-0 rotate-180" />
-                <div className="text-dark z-50 p-6 line-clamp-[8] min-h-44 flex flex-col items-center justify-center">
+                <div className="text-dark z-50 p-6 line-clamp-[8] min-h-44 flex flex-col items-center justify-center md:text-base text-sm">
                   {message}
                 </div>
                 <FaQuoteRight className="absolute text-7xl text-black/10 bottom-0 right-0 z-10" />

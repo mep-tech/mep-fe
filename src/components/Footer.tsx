@@ -46,17 +46,27 @@ const Footer = () => {
   };
   return (
     <div>
-      <div className="px-5 py-8 md:p-8 bg-[#003154] text-white">
+      <div className="px-5 py-8 md:p-8 bg-[#003154] text-white md:text-base text-sm">
         <div className="flex flex-row flex-wrap gap-8 justify-between">
           <a href="/#" onClick={onLinkClicked("home")}>
-            <img src="/logo-full.png" alt="logo" className="max-w-[328px] w-full h-min bg-white py-1 px-2" />
+            <img
+              src="/logo-full.png"
+              alt="logo"
+              className="max-w-[328px] w-full h-min bg-white py-1 px-2"
+            />
           </a>
           <div className="flex flex-row flex-wrap gap-4 justify-between grow">
             <div>
               <h2 className="font-semibold text-2xl mb-1">Quick Links</h2>
               {LandingNavLinks.map((link) => (
-                <div key={link.name} className="flex flex-row gap-1 my-2 items-center">
-                  <MdOutlineKeyboardArrowRight size="24px" className="text-[#AAAAAA]" />
+                <div
+                  key={link.name}
+                  className="flex flex-row gap-1 my-2 items-center"
+                >
+                  <MdOutlineKeyboardArrowRight
+                    size="24px"
+                    className="text-[#AAAAAA]"
+                  />
                   <a
                     href={link.href}
                     className="capitalize hover:text-secondary transition-colors duration-200"
@@ -139,8 +149,10 @@ const Footer = () => {
           ))}
         </div>
       </div>
-      <div className="px-5 md:px-8 py-5 flex flex-col flex-wrap md:flex-row gap-2 items-center md:justify-between text-center bg-muted selection:bg-white leading-tight relative">
-        <p className="text-[#818181]">© 2024 meperictric technology ltd. All Right Reserved.</p>
+      <div className="px-5 md:px-8 py-5 flex flex-col flex-wrap md:flex-row gap-2 items-center md:justify-between text-center bg-muted selection:bg-white leading-tight relative md:text-base text-sm">
+        <p className="text-[#818181]">
+          © 2024 meperictric technology ltd. All Right Reserved.
+        </p>
         <Box
           className="text-[#AAAAAA] hover:text-secondary transition-colors duration-200"
           component="a"
