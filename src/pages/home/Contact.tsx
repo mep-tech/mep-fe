@@ -4,19 +4,113 @@ import { FiMapPin, FiPhone } from "react-icons/fi";
 import BackButton from "../../components/BackButton";
 import Footer, { mediaLinks } from "../../components/Footer";
 import NavBar from "../../components/NavBar";
+import { useLayoutEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import TopBar from "../../components/TopBar";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
+  const backRef = useRef<HTMLDivElement | null>(null);
+  const pageHeaderRef = useRef<HTMLDivElement | null>(null);
+  const boxRef = useRef<HTMLDivElement | null>(null);
+
+  useLayoutEffect(() => {
+    gsap.fromTo(
+      backRef.current,
+      { opacity: 0, x: -50, scale: 0.5 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 2,
+        delay: 0.5,
+        scale: 1,
+        stagger: 0.3,
+        ease: "power4.out",
+      }
+    );
+
+    gsap.fromTo(
+      boxRef.current,
+      { opacity: 1, scale: 0.5 },
+      {
+        opacity: 1,
+        duration: 2,
+        delay: 0.5,
+        scale: 1,
+        stagger: 0.3,
+        ease: "power4.out",
+      }
+    );
+
+    ScrollTrigger.create({
+      animation: gsap.fromTo(
+        backRef.current,
+        { opacity: 0, x: -50, scale: 0.5 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 1,
+          scale: 1,
+          stagger: 0.3,
+          delay: 0.5,
+          ease: "power4.out",
+        }
+      ),
+      trigger: backRef.current,
+      start: "top 100%",
+      end: "top 50%",
+      toggleActions: "play none none none",
+      scrub: true,
+    });
+
+    ScrollTrigger.create({
+      animation: gsap.fromTo(
+        boxRef.current,
+        { scale: 0.7 },
+        {
+          duration: 1,
+          scale: 1,
+          stagger: 0.3,
+          delay: 0.5,
+          ease: "power4.out",
+        }
+      ),
+      trigger: boxRef.current,
+      start: "top 100%",
+      end: "top 50%",
+      toggleActions: "play none none none",
+      scrub: true,
+    });
+
+    gsap.fromTo(
+      pageHeaderRef.current,
+      { x: -100, opacity: 0 },
+      {
+        x: 0,
+        opacity: 1,
+        duration: 1,
+        delay: 0.5,
+        ease: "power4.out",
+      }
+    );
+  }, []);
   return (
     <div>
-      <NavBar fixNavBar={false} />
+      <TopBar />
+      <NavBar />
       <div id="contact" className="min-h-[1440px] relative bg-background">
-        <div className="relative md:h-[calc(100vh_-_64px)] h-screen contact-container flex flex-col">
+        <div className="relative md:h-[calc(100vh_-_64px)] h-screen contact-container flex flex-col max-h-[640px]">
           <div className="z-50 flex-1 w-full md:w-auto md:text-center text-left absolute md:left-[150px] left-1/2 md:top-1/3 top-[15%] transform md:translate-x-0 -translate-x-1/2 -translate-y-1/2">
-            <div className="md:pl-0 pl-4">
+            <div ref={backRef} className="md:pl-0 pl-4">
               <BackButton />
             </div>
           </div>
-          <div className="z-50 flex-1 w-full md:w-auto text-center md:text-left absolute md:left-[150px] left-1/2 md:top-1/2 sm:top-[60%] top-[25%] transform md:translate-x-0 -translate-x-1/2 -translate-y-1/2">
+          <div
+            ref={pageHeaderRef}
+            className="z-50 flex-1 w-full md:w-auto text-center md:text-left absolute md:left-[150px] left-1/2 md:top-1/2 sm:top-[60%] top-[25%] transform md:translate-x-0 -translate-x-1/2 -translate-y-1/2"
+          >
             <h1 className="text-white xs:text-6xl text-4xl font-bold uppercase">
               Contact Us
             </h1>
@@ -30,7 +124,10 @@ const Contact = () => {
           />
         </div>
         <div className="z-10 relative">
-          <div className="lg:w-[80%] xs:w-[90%] w-[98%] max-w-[1150px] min-h-[600px] absolute -top-[1px] left-1/2 -translate-x-1/2 -translate-y-[30%] flex items-stretch shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-[40px] z-10 bg-white">
+          <div
+            ref={boxRef}
+            className="lg:w-[80%] xs:w-[90%] w-[98%] max-w-[1150px] min-h-[600px] absolute -top-[1px] left-1/2 -translate-x-1/2 -translate-y-[30%] flex items-stretch shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-[40px] z-10 bg-white"
+          >
             <div className="bg-white w-2/5 min-w-[300px] h-full rounded-l-[40px] lg:px-6 px-3  py-10 md:block hidden">
               <h1 className="font-bold text-3xl text-center">Get in touch</h1>
               <div className="flex gap-2 mt-8">

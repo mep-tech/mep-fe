@@ -47,7 +47,7 @@ const Stats = () => {
         ease: "power4.out",
         scrollTrigger: {
           trigger: statsRef.current,
-          start: "top 90%",
+          start: "top 100%",
           end: "top 20%",
           scrub: true,
         },
@@ -56,10 +56,7 @@ const Stats = () => {
   }, []);
 
   return (
-    <div
-      id="stats"
-      className="stats-container"
-    >
+    <div id="stats" className="stats-container">
       <div className="container mx-auto py-20 px-5">
         <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-10">
           {stats.map((stat, index) => (

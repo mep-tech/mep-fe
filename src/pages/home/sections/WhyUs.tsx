@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Title from "../../../components/Title";
+import { useNavigate } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,6 +42,7 @@ const reasons = [
 ];
 
 const WhyUs: React.FC = () => {
+  const navigate = useNavigate();
   const introRef = React.useRef<HTMLDivElement>(null);
   const buttonRef = React.useRef<HTMLButtonElement>(null);
   const reasonsRef = React.useRef<HTMLDivElement[]>([]);
@@ -48,7 +50,7 @@ const WhyUs: React.FC = () => {
   useEffect(() => {
     gsap.fromTo(
       introRef.current,
-      { opacity: 0, y: 100, x: -100 },
+      { opacity: 0, y: 100, x: 100 },
       {
         opacity: 1,
         y: 0,
@@ -71,14 +73,28 @@ const WhyUs: React.FC = () => {
         scale: 1,
         opacity: 1,
         duration: 1,
-        scrollTrigger: {
-          trigger: buttonRef.current,
-          start: "top 150%",
-          scrub: true,
-          toggleActions: "play none none none",
-        },
       }
     );
+
+    ScrollTrigger.create({
+      animation: gsap.fromTo(
+        buttonRef.current,
+        { opacity: 0, y: 0, scale: 0.5 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          scale: 1,
+          stagger: 0.3,
+          ease: "power4.out",
+        }
+      ),
+      trigger: buttonRef.current,
+      start: "top 150%",
+      end: "top 50%",
+      toggleActions: "play none none none",
+      scrub: true,
+    });
 
     reasonsRef.current.forEach((reason, index) => {
       gsap.fromTo(
@@ -92,7 +108,7 @@ const WhyUs: React.FC = () => {
           scrollTrigger: {
             trigger: reason,
             start: "top 170%",
-            end: "top 0%",
+            end: "top 20%",
             scrub: true,
             toggleActions: "play none none none",
           },
@@ -122,8 +138,11 @@ const WhyUs: React.FC = () => {
           <Button
             className="bg-secondary text-white capitalize text-base w-fit px-14 py-4 mt-10 font-normal"
             ref={buttonRef}
+            onClick={() => {
+              navigate("/about/#team");
+            }}
           >
-            Read more
+            Meet our team
           </Button>
         </div>
         {reasons.map((reason, index) => (

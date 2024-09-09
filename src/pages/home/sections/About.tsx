@@ -20,7 +20,7 @@ const About: React.FC = () => {
         opacity: 1,
         scrollTrigger: {
           trigger: leftImageRef.current,
-          start: "top 80%",
+          start: "top 200%",
           end: "top 10%",
           scrub: true,
         },
@@ -53,7 +53,7 @@ const About: React.FC = () => {
         opacity: 1,
         scrollTrigger: {
           trigger: textRef.current,
-          start: "top 80%",
+          start: "top 100%",
           end: "top 30%",
           scrub: true,
         },
@@ -68,7 +68,7 @@ const About: React.FC = () => {
         opacity: 1,
         scrollTrigger: {
           trigger: buttonRef.current,
-          start: "top 150%",
+          start: "top 120%",
           end: "top 60%",
           scrub: true,
         },

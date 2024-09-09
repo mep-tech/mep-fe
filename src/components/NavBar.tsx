@@ -12,16 +12,11 @@ import { IoArrowForward } from "react-icons/io5";
 import { RiMenu3Fill } from "react-icons/ri";
 import { LandingNavLinks } from "../constants/landing-navlinks";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { scrollToSection } from "../utils/scroll.utils";
 
 const NavBar = ({ fixNavBar = true }: { fixNavBar?: boolean }) => {
   const [pageScrolled, setPageScrolled] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
-  const pathName = useLocation().pathname;
   const navigate = useNavigate();
-  const onOuterPages =
-    pathName.split("/").includes("contact") ||
-    pathName.split("/").includes("about");
 
   useEffect(() => {
     const scrollAction = () => {
@@ -34,12 +29,31 @@ const NavBar = ({ fixNavBar = true }: { fixNavBar?: boolean }) => {
     window.addEventListener("scroll", scrollAction);
   }, []);
 
-  const handleNavigation = (slug: string) => {
-    if (onOuterPages) {
-      navigate(`/#${slug}`);
-    } else {
-      scrollToSection(slug);
+  const location = useLocation();
+
+  useEffect(() => {
+    const section = location.hash;
+    if (section) {
+      console.log(
+        section,
+        document.querySelector(section)?.getBoundingClientRect()?.top,
+        window.scrollY
+      );
+      setTimeout(() => {
+        document.scrollingElement?.scrollTo({
+          top:
+            (document.querySelector(section)?.getBoundingClientRect()?.top ||
+              0) +
+            window.scrollY -
+            64,
+          behavior: "smooth",
+        });
+      }, 100);
     }
+  }, [location.hash]);
+
+  const handleNavigation = (slug: string) => {
+    navigate(`/#${slug}`);
   };
 
   const toggleDrawer = (newOpen: boolean) => () => {

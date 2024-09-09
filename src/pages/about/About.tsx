@@ -10,7 +10,7 @@ import {
   getAllMembers,
   selectAllMembers,
 } from "../../store/slices/member.slice";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Skeleton } from "@mui/material";
 import {
   getAllCertificates,
@@ -20,6 +20,7 @@ import Footer from "../../components/Footer";
 import { GoDotFill } from "react-icons/go";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import TopBar from "../../components/TopBar";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -84,6 +85,7 @@ const About = () => {
   const titleCertificateRef = useRef<HTMLDivElement | null>(null);
   const missionRef = useRef<HTMLDivElement | null>(null);
   const visionRef = useRef<HTMLDivElement | null>(null);
+  const backRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     dispatch(getAllMembers({ skip: 0, limit: 10 })).then(() => {
@@ -93,7 +95,9 @@ const About = () => {
     dispatch(getAllCertificates({ skip: 0, limit: 10 })).then(() => {
       setCertificatesLoading(false);
     });
+  }, [dispatch]);
 
+  useLayoutEffect(() => {
     gsap.fromTo(
       headerRef.current,
       { y: 50, opacity: 0 },
@@ -133,12 +137,12 @@ const About = () => {
     ScrollTrigger.create({
       animation: gsap.fromTo(
         headerRef.current,
-        { y: "0%" },
-        { y: "-50%", duration: 3 }
+        { y: "0%", x: 150, opacity: 0 },
+        { y: "0%", x: 0, duration: 3, opacity: 1 }
       ),
       trigger: headerRef.current,
-      start: "top 80%",
-      end: "top -80%",
+      start: "top 100%",
+      end: "top 50%",
       toggleActions: "play none none none",
       scrub: true,
     });
@@ -146,12 +150,12 @@ const About = () => {
     ScrollTrigger.create({
       animation: gsap.fromTo(
         paragraphRef.current,
-        { y: 0 },
-        { y: 25, duration: 3 }
+        { y: 0, x: -100, opacity: 0 },
+        { y: 0, x: 0, opacity: 1, duration: 3 }
       ),
       trigger: paragraphRef.current,
-      start: "top 50%",
-      end: "top -50%",
+      start: "top 100%",
+      end: "top 70%",
       toggleActions: "play none none none",
       scrub: true,
     });
@@ -179,14 +183,28 @@ const About = () => {
         scale: 1,
         stagger: 0.3,
         ease: "power4.out",
-        scrollTrigger: {
-          trigger: imagesRef.current,
-          start: "top 150%",
-          end: "top 0%",
-          scrub: true,
-        },
       }
     );
+
+    ScrollTrigger.create({
+      animation: gsap.fromTo(
+        imagesRef.current,
+        { opacity: 0, y: 50, scale: 0.5 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          scale: 1,
+          stagger: 0.3,
+          ease: "power4.out",
+        }
+      ),
+      trigger: imagesRef.current,
+      start: "top 100%",
+      end: "top 50%",
+      toggleActions: "play none none none",
+      scrub: true,
+    });
 
     gsap.fromTo(
       teamRef.current,
@@ -320,6 +338,39 @@ const About = () => {
         },
       }
     );
+
+    gsap.fromTo(
+      backRef.current,
+      { opacity: 0, y: 100, scale: 0.5 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 2,
+        scale: 1,
+        stagger: 0.3,
+        ease: "power4.out",
+      }
+    );
+
+    ScrollTrigger.create({
+      animation: gsap.fromTo(
+        backRef.current,
+        { opacity: 0, y: 50, scale: 0.5 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          scale: 1,
+          stagger: 0.3,
+          ease: "power4.out",
+        }
+      ),
+      trigger: backRef.current,
+      start: "top 100%",
+      end: "top 50%",
+      toggleActions: "play none none none",
+      scrub: true,
+    });
   }, []);
 
   const settings: Settings = {
@@ -360,13 +411,16 @@ const About = () => {
   };
   return (
     <div>
-      <NavBar fixNavBar={false} />
-      <div id="about" className="relative bg-white main">
-        <div className="relative md:h-[calc(70vh_-_64px)] h-[60vh] about-container flex flex-col">
+      <TopBar />
+      <NavBar />
+      <div id="about" className="relative bg-white">
+        <div className="relative about-container flex flex-col items-center justify-center py-[64px] pt-[120px]">
           <div className="z-10 flex-1 w-full md:w-auto md:text-center text-left absolute md:left-[150px] left-1/2 md:top-1/3 top-[25%] transform md:translate-x-0 -translate-x-1/2 -translate-y-1/2 md:ml-0 ml-4">
-            <BackButton />
+            <div ref={backRef}>
+              <BackButton />
+            </div>
           </div>
-          <div className="z-10 flex-1 w-full text-center md:text-left absolute left-0 top-[60%] transform -translate-y-1/2 flex flex-col items-center gap-10">
+          <div className="z-10 w-full text-center md:text-left h-fit flex flex-col items-center gap-10">
             <h1
               ref={pageHeaderRef}
               className="text-white xs:text-6xl text-4xl font-bold uppercase text-center"
@@ -416,7 +470,7 @@ const About = () => {
               efficient solutions that meet our client’s needs{" "}
             </p>
           </div>
-          <article className="gallery md:grid hidden">
+          <article className="gallery md:grid hidden m-0 place-items-center">
             {images.map((image, index) => (
               <span ref={(el) => (imagesRef.current[index] = el)} key={index}>
                 <img src={image.src} alt={image.alt} />
@@ -439,7 +493,7 @@ const About = () => {
             </div>
           </div>
         </div>
-        <div id="mission" className="min-h-[500px] bg-primary py-10">
+        <div id="mission" className="min-h-[500px] bg-primary py-10 w-full">
           <h1
             ref={titleMissionRef}
             className="text-5xl text-center uppercase font-bold text-white"
@@ -494,11 +548,11 @@ const About = () => {
               Loading...
             </Skeleton>
           ) : (
-            <div className="flex flex-wrap justify-center gap-4 pt-10">
+            <div className="flex flex-wrap justify-center gap-4 pt-10 max-w-[1200px]">
               {members.map((member, index) => (
                 <div
                   ref={(el) => (teamRef.current[index] = el!)}
-                  key={member._id}
+                  key={index}
                   className="flex flex-col items-center bg-white/15 rounded-lg p-4"
                 >
                   <div className="border-[2.5px] border-blue-500 rounded-full p-1">
@@ -538,7 +592,7 @@ const About = () => {
             <div className="lg:columns-3 sm:columns-2 columns-1 gap-4 p-10">
               {certificates.map((certificate, index) => (
                 <div
-                  ref={(el) => (certificateRef.current[index] = el)}
+                  ref={(el) => (certificateRef.current[index] = el!)}
                   key={certificate._id}
                   className="break-inside-avoid shadow-[0_3px_10px_rgb(0,0,0,0.2)] mt-4"
                 >
