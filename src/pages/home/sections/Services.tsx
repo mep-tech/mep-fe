@@ -74,7 +74,7 @@ const Services = () => {
   }, []);
 
   return (
-    <div id="services" className="h-max px-5 py-8 md:p-16 relative overflow-y-hidden">
+    <div id="services-1" className="h-max px-5 py-8 md:p-16 relative overflow-y-hidden">
       <Title ref={titleRef} title="OUR SERVICES" color="common.black" className="mx-auto my-8" />
       <img
         src="/images/bg-services.png"

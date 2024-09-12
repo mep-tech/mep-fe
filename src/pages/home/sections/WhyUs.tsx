@@ -107,8 +107,8 @@ const WhyUs: React.FC = () => {
           duration: 1,
           scrollTrigger: {
             trigger: reason,
-            start: "top 170%",
-            end: "top 20%",
+            start: "top 90%",
+            end: "top 50%",
             scrub: true,
             toggleActions: "play none none none",
           },

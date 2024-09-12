@@ -8,6 +8,7 @@ import Testimonials from "./sections/Testimonials";
 import Stats from "./sections/Stats";
 import WhyUs from "./sections/WhyUs";
 import Footer from "../../components/Footer";
+import Solutions from "./sections/Solutions";
 
 const DualNavbar: React.FC = () => {
   return (
@@ -16,6 +17,7 @@ const DualNavbar: React.FC = () => {
       <Intro />
       <About />
       <Stats />
+      <Solutions />
       <Services />
       <WhyUs />
       <Projects />
