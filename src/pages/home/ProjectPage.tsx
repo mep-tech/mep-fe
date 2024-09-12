@@ -68,11 +68,13 @@ const ProjectPage = () => {
         <TopBar />
         <NavBar />
         <div className="w-full pt-[48px] md:pt-[64px] bg-primary-foreground/85">
-          <img
-            src="/images/projects-bg-top.png"
-            alt="projects top image"
-            className="size-full object-cover absolute top-0 bottom-0 -z-10 "
-          />
+          {project?.image && (
+            <img
+              src={project.image}
+              alt="projects top image"
+              className="size-full object-cover absolute top-0 bottom-0 -z-10"
+            />
+          )}
           <div className="p-4 sm:p-8 md:py-10 md:px-16 flex flex-col items-center">
             <BackButton className="mb-4 xs:mb-8 self-start" />
 
