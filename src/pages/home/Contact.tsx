@@ -15,6 +15,7 @@ const Contact = () => {
   const backRef = useRef<HTMLDivElement | null>(null);
   const pageHeaderRef = useRef<HTMLDivElement | null>(null);
   const boxRef = useRef<HTMLDivElement | null>(null);
+  const userRef: any = useRef(null);
 
   useLayoutEffect(() => {
     gsap.fromTo(
@@ -37,6 +38,20 @@ const Contact = () => {
       {
         opacity: 1,
         duration: 2,
+        delay: 0.5,
+        scale: 1,
+        stagger: 0.3,
+        ease: "power4.out",
+      }
+    );
+
+    gsap.fromTo(
+      userRef.current,
+      { opacity: 1, scale: 0.5, y: 70 },
+      {
+        opacity: 1,
+        duration: 2,
+        y: 0,
         delay: 0.5,
         scale: 1,
         stagger: 0.3,
@@ -119,6 +134,7 @@ const Contact = () => {
             </p>
           </div>
           <img
+            ref={userRef}
             src="/images/secretary.png"
             className="w-auto md:h-[500px] h-auto absolute md:bottom-[60px] xs:bottom-[150px] bottom-[25%] right-0"
           />

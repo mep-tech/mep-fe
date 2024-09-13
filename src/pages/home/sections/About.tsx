@@ -106,7 +106,7 @@ const About: React.FC = () => {
       <div className="flex flex-col lg:w-1/2 w-full" ref={textRef}>
         <p className="text-secondary">About Us</p>
         <h1 className="sm:text-4xl text-2xl font-semibold text-dark mb-6">
-          Welcome To MEP Erictric Technology Ltd
+          Welcome To MEP ERICTRIC TECHNOLOGY LTD
         </h1>
         <img
           src="/images/bg-1.jpg"

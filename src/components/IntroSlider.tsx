@@ -61,122 +61,127 @@ const IntroSlider = ({ slides }: any) => {
     const paragraph = paragraphRef.current;
     const mm = gsap.matchMedia();
 
-    mm.add("(min-width: 768px)", () => {
+    const ctx = gsap.context(() => {
+      mm.add("(min-width: 768px)", () => {
+        gsap.fromTo(
+          image,
+          { x: "100%", opacity: 0, scale: 0.2, y: "50%" },
+          {
+            x: "0%",
+            opacity: 1,
+            duration: 2,
+            delay: 0.5,
+            scale: 1,
+            y: "0%",
+            stagger: 0.4,
+            ease: "power3.out",
+          }
+        );
+
+        ScrollTrigger.create({
+          animation: gsap.fromTo(
+            image,
+            { x: "0%" },
+            { x: "100%", duration: 3, z: 0.01 }
+          ),
+          trigger: image,
+          start: "top 80%",
+          end: "top 20%",
+          toggleActions: "play none none none",
+          scrub: true,
+        });
+      });
+
+      mm.add("(max-width: 767px)", () => {
+        gsap.fromTo(
+          image,
+          { x: "0%", opacity: 0, scale: 0.2, y: "50%" },
+          {
+            x: "0%",
+            opacity: 1,
+            duration: 2,
+            delay: 0.5,
+            scale: 1,
+            y: "0%",
+            stagger: 0.4,
+            ease: "power3.out",
+          }
+        );
+
+        ScrollTrigger.create({
+          animation: gsap.to(image, { x: "200%", duration: 3 }),
+          trigger: image,
+          start: "top 80%",
+          end: "top 20%",
+          toggleActions: "play none none none",
+          scrub: true,
+        });
+      });
+
       gsap.fromTo(
-        image,
-        { x: "100%", opacity: 0, scale: 0.2, y: "50%" },
+        header,
+        { y: 50, opacity: 0 },
         {
-          x: "0%",
+          y: 0,
           opacity: 1,
-          duration: 2,
+          duration: 1,
           delay: 0.5,
-          scale: 1,
-          y: "0%",
-          stagger: 0.4,
-          ease: "power3.out",
+          ease: "power4.out",
         }
       );
+
+      gsap.fromTo(
+        paragraph,
+        { y: 0, opacity: 0 },
+        { y: 0, opacity: 1, duration: 2, delay: 0.5, ease: "circ.inOut" }
+      );
+
+      ScrollTrigger.create({
+        animation: gsap.fromTo(header, { x: "0%" }, { x: "30%", duration: 3 }),
+        trigger: header,
+        start: "top 20%",
+        end: "top -80%",
+        toggleActions: "play none none none",
+        scrub: true,
+      });
+
+      ScrollTrigger.create({
+        animation: gsap.fromTo(paragraph, { y: 0 }, { y: 50, duration: 3 }),
+        trigger: paragraph,
+        start: "top 50%",
+        end: "top 0%",
+        toggleActions: "play none none none",
+        scrub: true,
+      });
 
       ScrollTrigger.create({
         animation: gsap.fromTo(
-          image,
-          { x: "0%" },
-          { x: "100%", duration: 3, z: 0.01}
+          dotRefs.current,
+          { opacity: 1, scale: 1 },
+          {
+            opacity: 0.2,
+            scale: 0.8,
+            duration: 2,
+            stagger: 0.1,
+            ease: "power1.out",
+          }
         ),
-        trigger: image,
+        trigger: dotRefs.current,
         start: "top 80%",
         end: "top 20%",
         toggleActions: "play none none none",
         scrub: true,
       });
-    });
-
-    mm.add("(max-width: 767px)", () => {
-      gsap.fromTo(
-        image,
-        { x: "0%", opacity: 0, scale: 0.2, y: "50%" },
-        {
-          x: "0%",
-          opacity: 1,
-          duration: 2,
-          delay: 0.5,
-          scale: 1,
-          y: "0%",
-          stagger: 0.4,
-          ease: "power3.out",
-        }
-      );
-
-      ScrollTrigger.create({
-        animation: gsap.to(image, { x: "200%", duration: 3 }),
-        trigger: image,
-        start: "top 80%",
-        end: "top 20%",
-        toggleActions: "play none none none",
-        scrub: true,
-      });
-    });
-
-    gsap.fromTo(
-      header,
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        delay: 0.5,
-        ease: "power4.out",
-      }
-    );
-
-    gsap.fromTo(
-      paragraph,
-      { y: 0, opacity: 0 },
-      { y: 0, opacity: 1, duration: 2, delay: 0.5, ease: "circ.inOut" }
-    );
-
-    ScrollTrigger.create({
-      animation: gsap.fromTo(header, { x: "0%" }, { x: "30%", duration: 3 }),
-      trigger: header,
-      start: "top 20%",
-      end: "top -80%",
-      toggleActions: "play none none none",
-      scrub: true,
-    });
-
-    ScrollTrigger.create({
-      animation: gsap.fromTo(paragraph, { y: 0 }, { y: 50, duration: 3 }),
-      trigger: paragraph,
-      start: "top 50%",
-      end: "top 0%",
-      toggleActions: "play none none none",
-      scrub: true,
-    });
-
-    ScrollTrigger.create({
-      animation: gsap.fromTo(
-        dotRefs.current,
-        { opacity: 1, scale: 1 },
-        {
-          opacity: 0.2,
-          scale: 0.8,
-          duration: 2,
-          stagger: 0.1,
-          ease: "power1.out",
-        }
-      ),
-      trigger: dotRefs.current,
-      start: "top 80%",
-      end: "top 20%",
-      toggleActions: "play none none none",
-      scrub: true,
     });
 
     // return () => {
     //   gsap.killTweensOf([image, header, paragraph]);
     // };
 
-    return () => mm.revert();
+    return () => {
+      ctx.clear();
+      mm.revert();
+    };
   }, [currentIndex]);
 
   useEffect(() => {

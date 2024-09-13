@@ -111,8 +111,8 @@ const Solutions = () => {
         duration: 1,
         scrollTrigger: {
           trigger: headingRef.current,
-          start: "top 80%",
-          end: "top 20%",
+          start: "top 100%",
+          end: "top 50%",
           scrub: true,
         },
       }
@@ -127,8 +127,8 @@ const Solutions = () => {
         duration: 1,
         scrollTrigger: {
           trigger: userRef.current,
-          start: "top 80%",
-          end: "top 20%",
+          start: "top 100%",
+          end: "top 50%",
           scrub: true,
         },
       }
@@ -136,7 +136,7 @@ const Solutions = () => {
   }, []);
 
   return (
-    <div id="services" className="min-h-screen relative">
+    <div id="services" className="min-h-screen relative overflow-hidden">
       <div className="absolute top-0 left-0 bg-black solutions w-[60%] aspect-[9/6]"></div>
       <div className="flex xs:flex-row flex-col items-center justify-center content-around pt-6 py-4 sm:px-10 px-4">
         <div ref={headingRef} className="max-w-[500px]">

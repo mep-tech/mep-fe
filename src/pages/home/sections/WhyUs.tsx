@@ -45,84 +45,115 @@ const WhyUs: React.FC = () => {
   const navigate = useNavigate();
   const introRef = React.useRef<HTMLDivElement>(null);
   const buttonRef = React.useRef<HTMLButtonElement>(null);
-  const reasonsRef = React.useRef<HTMLDivElement[]>([]);
+  // const reasonsRef = React.useRef<HTMLDivElement[]>([]);
+  const cardsContainerRef = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    gsap.fromTo(
-      introRef.current,
-      { opacity: 0, y: 100, x: 100 },
-      {
-        opacity: 1,
-        y: 0,
-        x: 0,
-        duration: 1,
-        scrollTrigger: {
-          trigger: introRef.current,
-          start: "top 150%",
-          end: "top 20%",
-          scrub: true,
-          toggleActions: "play none none none",
-        },
-      }
-    );
-
-    gsap.fromTo(
-      buttonRef.current,
-      { scale: 0.8, opacity: 0 },
-      {
-        scale: 1,
-        opacity: 1,
-        duration: 1,
-      }
-    );
-
-    ScrollTrigger.create({
-      animation: gsap.fromTo(
-        buttonRef.current,
-        { opacity: 0, y: 0, scale: 0.5 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          scale: 1,
-          stagger: 0.3,
-          ease: "power4.out",
-        }
-      ),
-      trigger: buttonRef.current,
-      start: "top 150%",
-      end: "top 50%",
-      toggleActions: "play none none none",
-      scrub: true,
-    });
-
-    reasonsRef.current.forEach((reason, index) => {
+    const ctx = gsap.context(() => {
       gsap.fromTo(
-        reason,
-        { opacity: 0, scale: 0.7, y: 50 },
+        introRef.current,
+        { opacity: 0, y: 100, x: 100 },
         {
           opacity: 1,
           y: 0,
-          scale: 1,
+          x: 0,
           duration: 1,
           scrollTrigger: {
-            trigger: reason,
-            start: "top 90%",
-            end: "top 50%",
+            trigger: introRef.current,
+            start: "top 150%",
+            end: "top 20%",
             scrub: true,
             toggleActions: "play none none none",
           },
-          delay: index * 0.02,
         }
       );
+
+      gsap.fromTo(
+        buttonRef.current,
+        { scale: 0.8, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 1,
+        }
+      );
+
+      ScrollTrigger.create({
+        animation: gsap.fromTo(
+          buttonRef.current,
+          { opacity: 0, y: 0, scale: 0.5 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            scale: 1,
+            stagger: 0.3,
+            ease: "power4.out",
+          }
+        ),
+        trigger: buttonRef.current,
+        start: "top 150%",
+        end: "top 50%",
+        toggleActions: "play none none none",
+        scrub: true,
+      });
+
+      // reasonsRef.current.forEach((reason, index) => {
+      //   gsap.fromTo(
+      //     reason,
+      //     { opacity: 0, scale: 0.7, y: 50 },
+      //     {
+      //       opacity: 1,
+      //       y: 0,
+      //       scale: 1,
+      //       duration: 1,
+      //       scrollTrigger: {
+      //         trigger: reason,
+      //         start: "top 90%",
+      //         end: "top 50%",
+      //         scrub: true,
+      //         toggleActions: "play none none none",
+      //       },
+      //       delay: index * 0.02,
+      //     }
+      //   );
+      // });
     });
+
+    if (cardsContainerRef.current?.children) {
+      gsap.utils
+        .toArray(cardsContainerRef.current.children)
+        .forEach((child) => {
+          gsap.fromTo(
+            child as HTMLElement,
+            { y: 50, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              delay: 0.5,
+              scrollTrigger: {
+                trigger: child as HTMLElement,
+                start: "top 100%",
+                end: "top 50%",
+                scrub: 1,
+              },
+            }
+          );
+        });
+    }
+
+    return () => ctx.clear();
   }, []);
+
   return (
     <div
       id="why-us"
-      className="h-fit py-10 flex items-center image-container overflow-x-hidden"
+      className="h-fit py-10 flex items-center image-container overflow-hidden"
     >
-      <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-10 gap-4 lg:px-16 px-4 z-10">
+      <div
+        ref={cardsContainerRef}
+        className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 lg:gap-10 gap-4 lg:px-16 px-4 z-10"
+      >
         <div ref={introRef} className="text-white">
           <h2 className="text-4xl font-bold uppercase"></h2>
           <Title
@@ -152,7 +183,7 @@ const WhyUs: React.FC = () => {
             description={reason.description}
             image={reason.image}
             className=""
-            ref={(el: any) => (reasonsRef.current[index] = el!)}
+            // ref={(el: any) => (reasonsRef.current[index] = el!)}
           />
         ))}
       </div>
