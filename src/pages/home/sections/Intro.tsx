@@ -4,27 +4,32 @@ import IntroSlider from "../../../components/IntroSlider";
 const slides = [
   {
     image: "/images/worker2.png",
-    header: "Innovative Electrical and Mechanical Solutions for a Better Future",
+    header:
+      "Innovative Electrical and Mechanical Solutions for a Better Future",
     paragraph:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis culpa non fugiat placeat perspiciatis saepe dolore veniam eum beatae consectetur voluptate, voluptatem cupiditate, ipsa facere aut repellendus tempora hic magnam?",
+      "Our groundbreaking electrical and mechanical services are designed to push boundaries and drive progress. We focus on delivering efficient, sustainable solutions that meet today’s challenges while shaping a brighter tomorrow, ensuring your projects are future-ready and built to last.",
   },
   {
     image: "/images/worker3.png",
-    header: "Precision Engineering Services That Enhance and Empower Everyday Life",
+    header:
+      "Precision Engineering Services That Enhance and Empower Everyday Life",
     paragraph:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis culpa non fugiat placeat perspiciatis saepe dolore veniam eum beatae consectetur voluptate, voluptatem cupiditate, ipsa facere aut repellendus tempora hic magnam?",
+      "We offer precision engineering services that seamlessly integrate into daily life, delivering top-tier solutions that empower communities and industries alike. Our attention to detail and commitment to quality ensure every project meets the highest standards of excellence.",
   },
   {
     image: "/images/worker4.png",
     header: "Expertly Crafted Systems Designed to Meet Your Unique Needs",
     paragraph:
-      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis culpa non fugiat placeat perspiciatis saepe dolore veniam eum beatae consectetur voluptate, voluptatem cupiditate, ipsa facere aut repellendus tempora hic magnam?",
+      "Our systems are meticulously designed to cater to your unique requirements, providing reliable and innovative solutions. We take pride in crafting customized systems that blend innovation with practical application, offering efficiency and performance at every stage.",
   },
 ];
 
 const Intro = () => {
   return (
-    <div id="home" className="md:h-[calc(100vh_-_64px)] h-screen min-h-[500px] relative intro-container">
+    <div
+      id="home"
+      className="md:h-[calc(100vh_-_64px)] h-screen min-h-[500px] relative intro-container"
+    >
       <div className="z-10">
         <NavBar />
         <IntroSlider slides={slides} />

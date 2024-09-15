@@ -483,7 +483,7 @@ const About = () => {
               ref={headerRef}
               className="2xl:text-5xl xs:text-3xl text-xl uppercase font-bold"
             >
-              We build great products that meaningfully improve people’s lives
+              Your Trusted Partner for Reliable Services and Innovative Solutions
             </h1>
             <p ref={paragraphRef} className="mt-5">
               At MEP ERICTRIC TECHNOLOGY, we are committed to delivering top

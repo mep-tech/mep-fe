@@ -36,7 +36,7 @@ const reasons = [
   {
     title: "Affordable Services",
     description:
-      "Our team has extensive experience in MEP systems design, installation, and maintenance, ensuring that our clients receive professional and reliable services.",
+      "Our cost-effective services provide high-quality solutions without compromising on performance, ensuring that every project stays within budget while delivering exceptional results tailored to your needs.",
     image: "/images/innovative.png",
   },
 ];

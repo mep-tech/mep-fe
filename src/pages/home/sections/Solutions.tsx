@@ -7,22 +7,22 @@ import { PiPackageFill } from "react-icons/pi";
 const solutions = [
   {
     title: "Design",
-    desc: "Renewable energy systems like solar and wind power reduce carbon emissions and require careful grid integration.",
+    desc: "Expertly crafted designs ensure efficiency and longevity, tailored to meet specific project requirements while maximizing functionality and performance across various systems.",
     icon: MdDesignServices,
   },
   {
     title: "Installation",
-    desc: "Renewable energy systems like solar and wind power reduce carbon emissions and require careful grid integration.",
+    desc: "Our precise installation services guarantee seamless integration, ensuring that systems function optimally and safely, while adhering to industry standards and regulations.",
     icon: MdEngineering,
   },
   {
     title: "Supply",
-    desc: "Renewable energy systems like solar and wind power reduce carbon emissions and require careful grid integration.",
+    desc: "We provide high-quality, reliable supplies that meet the demands of modern infrastructure, ensuring access to the best materials and technologies for any project.",
     icon: PiPackageFill,
   },
   {
     title: "Maintainance",
-    desc: "Renewable energy systems like solar and wind power reduce carbon emissions and require careful grid integration.",
+    desc: "Regular maintenance services help extend system lifespan and prevent costly downtime, ensuring continued efficiency and performance with minimal disruptions.",
     icon: BsTools,
   },
 ];
@@ -144,8 +144,10 @@ const Solutions = () => {
             Explore Our solutions and Services
           </h1>
           <p className="md:text-base text-sm">
-            Renewable energy systems like solar and wind power reduce carbon
-            emissions and require careful grid integration.
+            Discover a wide range of tailored solutions and services designed to
+            meet the evolving needs of various industries. From cutting-edge
+            technologies to expert consultations, we offer innovative strategies
+            that drive success and ensure lasting results for every project.
           </p>
         </div>
         <div ref={userRef} className="relative">
@@ -170,7 +172,10 @@ const Solutions = () => {
             <p className="sm:text-sm text-xs mt-2">{solution.desc}</p>
           </div>
         ))}
-        <div ref={(el: any) => (solutionsRef.current[3] = el!)} className="w-full sm:col-span-2 rounded-lg dark-box p-5 lg:h-auto xxs:min-h-[200px] h-[300px]">
+        <div
+          ref={(el: any) => (solutionsRef.current[3] = el!)}
+          className="w-full sm:col-span-2 rounded-lg dark-box p-5 lg:h-auto xxs:min-h-[200px] h-[300px]"
+        >
           <div className="z-10 absolute left-1/2 md:top-1/2 top-[50%] transform -translate-x-1/2 -translate-y-1/2 w-full flex flex-col gap-2 justify-center sm:px-10 px-4 xs:text-left text-center">
             <h1
               ref={titleRef}
