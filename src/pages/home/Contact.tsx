@@ -116,7 +116,7 @@ const Contact = () => {
       <TopBar />
       <NavBar />
       <div id="contact" className="min-h-[1440px] relative bg-background">
-        <div className="relative md:h-[calc(100vh_-_64px)] h-screen contact-container flex flex-col max-h-[640px]">
+        <div className="relative md:h-[calc(100vh_-_64px)] h-screen contact-container flex flex-col max-h-[640px] md:min-h-[540px] min-h-auto">
           <div className="z-50 flex-1 w-full md:w-auto md:text-center text-left absolute md:left-[150px] left-1/2 md:top-1/3 top-[15%] transform md:translate-x-0 -translate-x-1/2 -translate-y-1/2">
             <div ref={backRef} className="md:pl-0 pl-4">
               <BackButton />
