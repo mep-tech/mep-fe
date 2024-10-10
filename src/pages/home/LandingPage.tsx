@@ -12,7 +12,7 @@ import Solutions from "./sections/Solutions";
 
 const DualNavbar: React.FC = () => {
   return (
-    <div className="max-w-[1440px] mx-auto">
+    <div className="mx-auto">
       <TopBar />
       <Intro />
       <About />

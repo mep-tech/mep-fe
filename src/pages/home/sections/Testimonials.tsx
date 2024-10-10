@@ -23,7 +23,7 @@ const Testimonials = () => {
   }, [dispatch]);
   return (
     <div id="testimonials" className="">
-      <div className="max-w-[1440px] mx-auto py-8">
+      <div className="mx-auto py-8">
         <Title title="TESTIMONIALS" color="common.black" className="mx-auto" />
         <div className="size-full xl:h-[521px] xs:h-[600px] h-[760px] relative md:p-4">
           {loading && (

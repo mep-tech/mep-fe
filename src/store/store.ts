@@ -10,6 +10,7 @@ import certificateSlice from "./slices/certificate.slice";
 const logger = createLogger({
   collapsed: true,
   timestamp: true,
+  predicate: () => import.meta.env.DEV,
 });
 
 export const store = configureStore({
